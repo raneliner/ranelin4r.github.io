@@ -10,30 +10,22 @@ function scrollCheck() {
 
 window.addEventListener('scroll', scrollCheck);
 
-window.addEventListener('load', function() {
-    document.getElementById('load').style.opacity = '0';
-    this.setTimeout(() => {
-        document.body.removeChild(load);
-    },1000);
-
-    scrollCheck();
-    Init();
-});
+let lenis = null;
 
 function Init() {
-    const lenis = new Lenis();
-    //lenis.on('scroll', console.log);
-    requestAnimationFrame(function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-    });
-
     var scroll = new SmoothScroll('a[href*="#"]', {
         offset: 72,
         speed: 1000,
         speedAsDuration: true,
         easing: 'easeInOutQuart'
     });
+
+    const lenis = new Lenis();
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
 }
 
 function showNav() {
@@ -65,8 +57,97 @@ logo.addEventListener('animationend', () => {
 });
 
 window.addEventListener('DOMContentLoaded', function() {
-  if (window.scrollY > 50) {
-    back2top.classList.add('show');
-  }
+    const load = document.getElementById('load');
+    const header = document.getElementById('header');
+    const main = document.getElementById('main');
 
+    header.style.top = '0';
+    main.style.overflow = 'visible';
+    setTimeout(() => {
+        load.style.opacity = '0';
+    },500);
+    setTimeout(() => {
+        document.body.removeChild(load);
+    },1000);
+    
+    scrollCheck();
+    Init();
 });
+/* Image lightbox for post images */
+(function(){
+    function createLightboxDOM(){
+        if (document.getElementById('theme-lightbox')) return document.getElementById('theme-lightbox');
+        const wrapper = document.createElement('div');
+        wrapper.id = 'theme-lightbox';
+        wrapper.innerHTML = `
+            <div class="lb-overlay" tabindex="-1" role="dialog" aria-hidden="true">
+                <button class="lb-prev" aria-label="上一张">&#xe112;</button>
+                <div class="lb-inner"><img class="lb-img" src="" alt=""><div class="lb-caption"></div></div>
+                <button class="lb-next" aria-label="下一张">&#xe111;</button>
+            </div>`;
+        document.body.appendChild(wrapper);
+        return wrapper;
+    }
+
+    function initImageLightbox(selector = '.post-content img'){
+        const imgs = Array.from(document.querySelectorAll(selector));
+        if (!imgs.length) return;
+        const root = createLightboxDOM();
+        const overlay = root.querySelector('.lb-overlay');
+        const imgEl = root.querySelector('.lb-img');
+        const captionEl = root.querySelector('.lb-caption');
+        const btnPrev = root.querySelector('.lb-prev');
+        const btnNext = root.querySelector('.lb-next');
+
+        let current = -1;
+
+        function open(index){
+            if (index < 0 || index >= imgs.length) return;
+            current = index;
+            const src = imgs[current].getAttribute('data-large') || imgs[current].src;
+            const alt = imgs[current].alt || '';
+            imgEl.src = src;
+            imgEl.alt = alt;
+            captionEl.textContent = alt;
+            document.body.classList.add('lightbox-open');
+            overlay.classList.add('open');
+            overlay.focus();
+        }
+
+        function close(){
+            overlay.classList.remove('open');
+            setTimeout(() => {
+                document.body.classList.remove('lightbox-open');
+                imgEl.src = '';
+            }, 300);
+        }
+
+        function prev(){ open((current - 1 + imgs.length) % imgs.length); }
+        function next(){ open((current + 1) % imgs.length); }
+
+        imgs.forEach((el, idx) => {
+            el.style.cursor = 'zoom-in';
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                open(idx);
+            });
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) close();
+        });
+        btnPrev.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
+        btnNext.addEventListener('click', (e) => { e.stopPropagation(); next(); });
+
+        document.addEventListener('keydown', (e) => {
+            if (!overlay.classList.contains('open')) return;
+            if (e.key === 'Escape') close();
+            if (e.key === 'ArrowLeft') prev();
+            if (e.key === 'ArrowRight') next();
+        });
+    }
+
+    // 暴露初始化函数并自动在 DOMContentLoaded 时初始化
+    window.initImageLightbox = initImageLightbox;
+    document.addEventListener('DOMContentLoaded', () => initImageLightbox());
+})();

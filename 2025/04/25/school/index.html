@@ -1,9 +1,14 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=0.8,maximum-scale=0.8,user-scalable=0">
         <meta name="generator" content="Hexo">
+        <meta name="author" content="RaneLiner">
+        <meta name="keywords" content="blog,raneliner,develop,life,game">
+        <meta name="title" content="某高中日常 | RaneLiner">
+        <meta name="description" content="Raneliner Personal Develop Blog Site.">
         <link rel="icon" href="/imgs/favicon.png">
         <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/extra.css">
@@ -14,53 +19,36 @@
         <title>某高中日常 | RaneLiner</title>
     </head>
     <body>
-        <div id="load" class="center">
+        <div id="load">
             <img src="/imgs/throbber.svg" alt="">
         </div>
-        <header>
-            
+        <div class="container">
+            <header id="header">
+                
 <nav id="navbar">
     <div class="link">
         <div class="logo" id="logo">
             <span>POST</span>
         </div>
         
-            <a href="javascript:void(0);"
-                name="menu"
-                onclick=showNav();>
-                <span>&#xe700;</span>&ensp;MENU
-            </a>
-        
-            <a href="/"
-                name=""
-                onclick=>
-                <span>&#xe10f;</span>&ensp;HOME
-            </a>
-        
-            <a href="/archives"
-                name=""
-                onclick=>
-                <span>&#xe7b8;</span>&ensp;ARCHIVES
-            </a>
-        
-            <a href="/tags"
-                name=""
-                onclick=>
-                <span>&#xe8ec;</span>&ensp;TAGS
-            </a>
-        
-            <a href="/projects"
-                name=""
-                onclick=>
-                <span>&#xeca5;</span>&ensp;PROJECTS
-            </a>
-        
-            <a href="/about"
-                name=""
-                onclick=>
-                <span>&#xe13d;</span>&ensp;ABOUT
-            </a>
-        
+        <a href="javascript:void(0);" name="menu" onclick=showNav();>
+            <span>&#xe700;</span>&ensp;MENU
+        </a>
+        <a href="/" name="" onclick=>
+            <span>&#xe10f;</span>&ensp;HOME
+        </a>
+        <a href="/archives" name="" onclick=>
+            <span>&#xe7b8;</span>&ensp;ARCHIVES
+        </a>
+        <a href="/tags" name="" onclick=>
+            <span>&#xe8ec;</span>&ensp;TAGS
+        </a>
+        <a href="/projects" name="" onclick=>
+            <span>&#xeca5;</span>&ensp;PROJECTS
+        </a>
+        <a href="/about" name="" onclick=>
+            <span>&#xe13d;</span>&ensp;ABOUT
+        </a>
     </div>
     <button id="switcher" title="切换暗色">
         <span id="light">&#xf08c;</span>
@@ -71,48 +59,30 @@
 <nav id="mobile-navbar">
     <div class="link">
         
-            <a href="javascript:void(0);"
-                name="menu"
-                onclick=showNav();>
-                <span>&#xe700;</span>&ensp;MENU
-            </a>
-        
-            <a href="/"
-                name=""
-                onclick=>
-                <span>&#xe10f;</span>&ensp;HOME
-            </a>
-        
-            <a href="/archives"
-                name=""
-                onclick=>
-                <span>&#xe7b8;</span>&ensp;ARCHIVES
-            </a>
-        
-            <a href="/tags"
-                name=""
-                onclick=>
-                <span>&#xe8ec;</span>&ensp;TAGS
-            </a>
-        
-            <a href="/projects"
-                name=""
-                onclick=>
-                <span>&#xeca5;</span>&ensp;PROJECTS
-            </a>
-        
-            <a href="/about"
-                name=""
-                onclick=>
-                <span>&#xe13d;</span>&ensp;ABOUT
-            </a>
-        
+        <a href="javascript:void(0);" name="menu" onclick=showNav();>
+            <span>&#xe700;</span>&ensp;MENU
+        </a>
+        <a href="/" name="" onclick=>
+            <span>&#xe10f;</span>&ensp;HOME
+        </a>
+        <a href="/archives" name="" onclick=>
+            <span>&#xe7b8;</span>&ensp;ARCHIVES
+        </a>
+        <a href="/tags" name="" onclick=>
+            <span>&#xe8ec;</span>&ensp;TAGS
+        </a>
+        <a href="/projects" name="" onclick=>
+            <span>&#xeca5;</span>&ensp;PROJECTS
+        </a>
+        <a href="/about" name="" onclick=>
+            <span>&#xe13d;</span>&ensp;ABOUT
+        </a>
     </div>
 </nav>
 
-        </header>
-        <main id="main">
-            <article class="post">
+            </header>
+            <main id="main">
+                <article class="post">
     <div class="post-meta">
         <img class="post-bg" src="/imgs/bgs/school.png" alt="">
         <div class="post-info">
@@ -147,50 +117,27 @@
         <h1><span id="在校感悟">在校感悟</span></h1><p>可以说，在学校里无疑是要被热死的，好比如热死在宿舍里的美洲大蠊。无论如何，该做的一天全在趴桌的时间上流失彻底。</p>
 <h1><span id="好这里是开端">好，这里是开端</span></h1><p>早上6点20起床很正常不是？但如果说食堂，那豆浆在40分就是稀有物，直接不演了都（）</p>
 
+        
     </div>
-        <div id="comment">
-            <div id="waline"></div>
-            <!-- Waline 评论系统 -->
-<script>
-    Waline.init({
-      el: '#waline',
-      serverURL: '', // 你的Waline服务端URL
-      path: '',
-      // 其他配置选项
-      avatar: 'mp',
-      meta: ['nick', 'mail', 'link'],
-      requiredMeta: ['nick'],
-      pageSize: 10,
-      lang: '',
-      dark: '',
-      locale: {
-        placeholder: ''
-      }
-    });
-</script>
-
-        </div>
 </article>
 
 
-        </main>
-        <footer>
-            <span>&copy;2023 - 2025 | Created by @RaneLiner</span>
-            <span>Powered by<a target="_blank" rel="noopener" href="https://hexo.io">Hexo.</a> (Testing)</span>
-        </footer>
-        <a id="back2top" href="#top">
-            <span>BACK 2 TOP</span>
-        </a>
+                <a id="back2top" href="#top">
+                    <span>BACK 2 TOP</span>
+                </a>
+            </main>
+            <footer class="footer">
+                <span>&copy;2023 - 2025 | Created by @RaneLiner</span>
+                <span>Powered by<a target="_blank" rel="noopener" href="https://hexo.io">Hexo.</a> (Testing)</span>
+            </footer>
+        </div>
+
     </body>
-    <script src="/js/lenis.min.js"></script>
+    <script src="/js/lenis.js"></script>
 <script src="/js/smooth-scroll.polyfills.min.js"></script>
 <script src="/js/script.js"></script>
 
 
-    <script src="/js/waline.min.js"></script>
-    <script src="/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <link rel="stylesheet" href="/css/highlight/tomorrow-night-blue.css">
 
 
 </html>

@@ -8,7 +8,7 @@
 
 ::selection {
     color: #fff;
-    background-color: var(--fg-color); /* 选中区域的背景色 */
+    background-color: #aca680;
 }
 
 * {
@@ -47,7 +47,7 @@ html, body {
     width: 100%;
     z-index: 1000;
     top: -60px;
-    transition: top 0.5s ease-out;
+    transition: top 0.6s cubic-bezier(0.2, 0.6, 0.4, 1);
 }
 
 #main {
@@ -69,14 +69,18 @@ html, body {
 #mobile-navbar {
     position: fixed;
     top: 0;
-    left: -100%;
+    left: -260px;
     width: 250px;
     height: 100%;
     background-color: var(--fg-color);
     box-shadow: var(--div-shadow);
-    transition: left 0.5s;
+    transition: left 0.5s cubic-bezier(0.2, 0.6, 0.4, 1);
     z-index: -1;
     display: none;
+}
+
+#mobile-navbar.visible {
+    left: 0;
 }
 
 #navbar .link,
@@ -124,8 +128,8 @@ html, body {
     vertical-align: -2px;
 }
 
-#navbar .link a[name=menu],
-#mobile-navbar .link a[name=menu] {
+#navbar .link a[id=menu],
+#mobile-navbar .link a[id=menu] {
     display: none;
 }
 
@@ -164,44 +168,40 @@ html, body {
 }
 
 #navbar button {
+    width: 40px;
+    height: 40px;
     padding: 10px;
     margin: 4px;
     background-color: transparent;
     border: none;
     border-radius: 50%;
-    display: grid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     place-items: center;
-    transition: background-color 200ms;
+    transition: background-color 300ms;
 }
 
 #navbar button span {
-    font-size: 20px;
+    position: relative;
+    top: 1px;
+    font-size: 18px;
     color: #000;
+    transition: color 300ms, text-shadow 300ms;
 }
 
-#navbar button span[id=dark] {
-    display: none;
+#navbar button:hover span {
+    color: #fff;
+    text-shadow: 4px 4px 4px #000;
 }
 
 #navbar button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 #navbar button:active {
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
-#mobile-navbar {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 250px;
-    height: 100%;
-    background-color: var(--fg-color);
-    box-shadow: var(--div-shadow);
-    transition: left 0.5s;
-    z-index: -1;
-    display: none;
+    transition: background-color 100ms;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 #mobile-navbar.visible {
@@ -227,7 +227,6 @@ html, body {
 }
 
 .search-bar input::placeholder{
-    font-family: 'slboot', 'MDL2';
     font-size: 16px;
     text-align: center;
     transition: transform 500ms;
@@ -337,11 +336,10 @@ html, body {
 
 .tag-button {
     padding: 8px 12px;
-    background-color: var(--ele-color);
+    background-color: var(--div-color);
     border: 1px solid #d7d2b4;
     text-decoration: none;
     color: #333;
-    background-color: #f9f9f9;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -392,11 +390,9 @@ html, body {
     align-items: center;
     place-content: center;
     user-select: none;
-    font-family: 'MDL2', 'slboot';
 }
 
 .post-detail span {
-    font-family: 'MDL2', 'slboot';
     vertical-align: -3px;
 }
 
@@ -549,7 +545,7 @@ blockquote footer{
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: #000 0 0 10px;
+    box-shadow: var(--div-shadow);
 }
 
 #back2top:hover {
@@ -699,7 +695,7 @@ blockquote footer{
         display: block;
     }
 
-    #navbar .link a[name=menu] {
+    #navbar .link a[id=menu] {
         display: block;
     }
 
@@ -723,4 +719,42 @@ blockquote footer{
     width: 80%;
     max-height: 80%;
 }
+}
+
+/* 纯 CSS 全页 ripple（从按钮中心扩散覆盖视口） */
+/* 使用时在需要的 button 上加类 ripple-button */
+.ripple-button {
+    position: relative;   /* 使伪元素以按钮为定位参照 */
+    overflow: visible;    /* 允许伪元素超出按钮显示 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ripple-button::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 300vmax;               /* 足够覆盖任意视口 */
+    height: 300vmax;
+    background: rgba(0,0,0,0.6); /* 可改为其它颜色/透明度 */
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform, opacity;
+    transition: transform 700ms cubic-bezier(.2,.9,.3,1), opacity 400ms ease;
+}
+
+/* 点击时触发扩散并淡出（纯 CSS） */
+.ripple-button:active::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+}
+
+/* 可选：键盘（回车/空格）触发时的视觉兼容 */
+.ripple-button:focus::after {
+    transform: translate(-50%, -50%) scale(0.02);
+    opacity: 0.6;
+    transition: transform 220ms ease, opacity 220ms ease;
 }

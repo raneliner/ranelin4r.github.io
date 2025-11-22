@@ -28,50 +28,49 @@
             <span>POST</span>
         </div>
         
-        <a href="javascript:void(0);" name="menu" onclick=showNav();>
+        <a href="javascript:void(0);" id="menu" >
             <span>&#xe700;</span>&ensp;MENU
         </a>
-        <a href="/" name="" onclick=>
+        <a href="/" id="" >
             <span>&#xe10f;</span>&ensp;HOME
         </a>
-        <a href="/archives" name="" onclick=>
+        <a href="/archives" id="" >
             <span>&#xe7b8;</span>&ensp;ARCHIVES
         </a>
-        <a href="/tags" name="" onclick=>
+        <a href="/tags" id="" >
             <span>&#xe8ec;</span>&ensp;TAGS
         </a>
-        <a href="/projects" name="" onclick=>
+        <a href="/projects" id="" >
             <span>&#xeca5;</span>&ensp;PROJECTS
         </a>
-        <a href="/about" name="" onclick=>
+        <a href="/about" id="" >
             <span>&#xe13d;</span>&ensp;ABOUT
         </a>
     </div>
-    <button id="switcher" title="切换暗色">
-        <span id="light">&#xf08c;</span>
-        <span id="dark">&#xec46;</span>
+    <button id="switcher" class="ripple-button" title="设置">
+        <span>&#xe115;</span>
     </button>
 </nav>
 
 <nav id="mobile-navbar">
     <div class="link">
         
-        <a href="javascript:void(0);" name="menu" onclick=showNav();>
+        <a href="javascript:void(0);" id="menu" >
             <span>&#xe700;</span>&ensp;MENU
         </a>
-        <a href="/" name="" onclick=>
+        <a href="/" id="" >
             <span>&#xe10f;</span>&ensp;HOME
         </a>
-        <a href="/archives" name="" onclick=>
+        <a href="/archives" id="" >
             <span>&#xe7b8;</span>&ensp;ARCHIVES
         </a>
-        <a href="/tags" name="" onclick=>
+        <a href="/tags" id="" >
             <span>&#xe8ec;</span>&ensp;TAGS
         </a>
-        <a href="/projects" name="" onclick=>
+        <a href="/projects" id="" >
             <span>&#xeca5;</span>&ensp;PROJECTS
         </a>
-        <a href="/about" name="" onclick=>
+        <a href="/about" id="" >
             <span>&#xe13d;</span>&ensp;ABOUT
         </a>
     </div>
@@ -115,21 +114,32 @@
         
             <div class="comment">
     <h1>Comments</h1>
-        <script src="https://giscus.app/client.js"
-                data-repo="raneliner/ranelin4r.github.io"
-                data-repo-id="R_kgDOMpVltQ"
-                data-category="Announcements"
-                data-category-id="DIC_kwDOMpVltc4Cx0Cx"
-                data-mapping="pathname"
-                data-strict="0"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-theme="https://raneliner.space/css/comment.css"
-                data-lang="zh-CN"
-                crossorigin="anonymous"
-                async>
-        </script>
+    <script>
+    // 获取当前页面 URL
+    const url = window.location.hostname;
+
+    // 动态注入 giscus（将映射方式改为 url）
+    (function(){
+      const s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      s.setAttribute('data-repo', 'raneliner/ranelin4r.github.io');
+      s.setAttribute('data-repo-id', 'R_kgDOMpVltQ');
+      s.setAttribute('data-category', 'Announcements');
+      s.setAttribute('data-category-id', 'DIC_kwDOMpVltc4Cx0Cx');
+      // 使用 URL 映射（giscus 会使用 document.location）
+      s.setAttribute('data-mapping', 'url');
+      s.setAttribute('data-strict', '0');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'bottom');
+      s.setAttribute('data-theme', url + '/css/giscus.css');
+      s.setAttribute('data-lang', 'zh-CN');
+      // 将脚本插入到当前 script 的父节点（即 .comment 中）
+      document.currentScript.parentNode.appendChild(s);
+    })();
+    </script>
 </div>
 
 

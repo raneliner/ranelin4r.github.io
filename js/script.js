@@ -28,12 +28,29 @@ function Init() {
     requestAnimationFrame(raf);
 }
 
-function showNav() {
-    const mobileNavbar = document.getElementById('mobile-navbar');
-    if (mobileNavbar.classList.contains('visible')) {
-        mobileNavbar.classList.remove('visible');
-    } else {
-        mobileNavbar.classList.add('visible');
+const menuBtn = document.getElementById('menu');
+
+menuBtn.onclick = function() {
+    const mobile = document.getElementById('mobile-navbar');
+    if (!mobile) return;
+
+    // 确保可聚焦以便监听 focusout
+    if (!mobile.hasAttribute('tabindex')) mobile.setAttribute('tabindex', '-1');
+
+    const opened = mobile.classList.toggle('visible');
+
+    if (opened) {
+        // 打开时聚焦，失去焦点则收回
+        mobile.focus();
+
+        const onFocusOut = (e) => {
+            const related = e.relatedTarget;
+            if (!related || !mobile.contains(related)) {
+                mobile.classList.remove('visible');
+                mobile.removeEventListener('focusout', onFocusOut);
+            }
+        };
+        mobile.addEventListener('focusout', onFocusOut);
     }
 };
 

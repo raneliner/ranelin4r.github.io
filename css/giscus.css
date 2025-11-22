@@ -71,10 +71,10 @@ main {
     --color-fg-default: #1f2328;
     --color-fg-muted: #656d76;
     --color-fg-subtle: #6e7781;
-    --color-canvas-default: var(--fg-color);
+    --color-canvas-default: var(--div-color);
     --color-canvas-overlay: #fff;
-    --color-canvas-inset: var(--div-color);
-    --color-canvas-subtle: var(--div-color);
+    --color-canvas-inset: var(--fg-color);
+    --color-canvas-subtle: var(--fg-color);
     --color-border-default: #d0d7de;
     --color-border-muted: #d8dee4;
     --color-neutral-muted: #afb8c133;

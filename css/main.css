@@ -47,7 +47,7 @@ html, body {
     width: 100%;
     z-index: 1000;
     top: -60px;
-    transition: top 0.5s ease;
+    transition: top 0.5s ease-out;
 }
 
 #main {

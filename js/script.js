@@ -56,23 +56,31 @@ logo.addEventListener('animationend', () => {
     logo.classList.remove('spin');
 });
 
-window.addEventListener('DOMContentLoaded', function() {
-    const load = document.getElementById('load');
-    const header = document.getElementById('header');
-    const main = document.getElementById('main');
+const load = document.getElementById('load');
+const header = document.getElementById('header');
+const main = document.getElementById('main');
 
+window.addEventListener('DOMContentLoaded', function() {
     header.style.top = '0';
     main.style.overflow = 'visible';
     setTimeout(() => {
         load.style.opacity = '0';
     },500);
     setTimeout(() => {
-        document.body.removeChild(load);
+        load.style.zIndex = '-114';
     },1000);
     
     scrollCheck();
     Init();
 });
+
+window.onbeforeunload = () => {
+    document.body.style.overflow = 'hidden';
+    header.style.top = '-60px';
+    load.style.zIndex = '999';
+    load.style.opacity = '1';
+};
+
 /* Image lightbox for post images */
 (function(){
     function createLightboxDOM(){

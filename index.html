@@ -80,7 +80,149 @@
 
             </header>
             <main id="main">
-                
+                    <style>
+        @font-face {
+            font-family: 'stzhongs';
+            src: url('font.ttf') format('truetype');
+        }
+        .con {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            color: black;
+            display: flex;
+            background: url('imgs/bg.jpg') no-repeat center center fixed;
+            background-color: var(--fg-color);
+            background-blend-mode: overlay;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .con canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+        }
+        .header h1 {
+            position: relative;
+            left: 5px;
+        }
+        .header img {
+            position: relative;
+            right: 5px;
+            width: 100px;
+            height: 100px;
+            transform: rotate(5deg);
+        }
+        .important {
+            padding: 10px;
+            background: url('imgs/circle.png') no-repeat;
+            background-size: 100% 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 70px;
+        }
+        
+        .time-label {
+            position: relative;
+            top: 10px;
+            font-size: 14px;
+        }
+        
+        .time-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+        }
+        
+        .separator {
+            margin-top: 20px;
+            font-size: 3.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+<div class="con" id="particles-js">
+    <div class="textRain"></div>
+    <div class="header">
+        <h1 style="font-size: 3rem;"><u>RaneLiner's</u> Space</h1>
+        <img src="imgs/frameWithTreat.png" alt="">
+    </div>
+    <div class="important">
+        <h3 style="margin: 0;">已开业天数</h3>
+    </div>
+    <div class="countdown">
+        <div class="time-box">
+            <div class="time-label">days passed</div>
+            <div id="days" class="time-number">00</div>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-box">
+            <div class="time-label">hours</div>
+            <div id="hours" class="time-number">00</div>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-box">
+            <div class="time-label">minutes</div>
+            <div id="minutes" class="time-number">00</div>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-box">
+            <div class="time-label">seconds</div>
+            <div id="seconds" class="time-number">00</div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const startDate = new Date(2023, 0, 5, 13, 0, 0, 0); // 注意：月份从0开始，0 = 1月
+
+    function updateElapsedTime() {
+        const now = new Date();
+        const difference = now - startDate; // 已过去的毫秒数
+
+        // 统一计算以防精度问题（先算总秒，再拆分）
+        const totalSeconds = Math.floor(difference / 1000);
+        const seconds = totalSeconds % 60;
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const minutes = totalMinutes % 60;
+        const totalHours = Math.floor(totalMinutes / 60);
+        const hours = totalHours % 24;
+        const days = Math.floor(totalHours / 24); // 自 2023-01-01 起的累计天数
+
+        // 更新页面显示
+        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    // 初始化显示并每秒更新
+    updateElapsedTime();
+    setInterval(updateElapsedTime, 1000);
+</script>
+
+
                 <a id="back2top" href="#top">
                     <span>BACK 2 TOP</span>
                 </a>

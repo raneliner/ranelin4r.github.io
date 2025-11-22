@@ -60,7 +60,7 @@ const load = document.getElementById('load');
 const header = document.getElementById('header');
 const main = document.getElementById('main');
 
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
     header.style.top = '0';
     main.style.overflow = 'visible';
     setTimeout(() => {

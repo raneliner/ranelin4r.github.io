@@ -2,6 +2,15 @@
  * Copyright (c) 2018 GitHub Inc.
  * https://github.com/primer/primitives/blob/main/LICENSE
  */
+
+:root {
+    --bg-color: #fffade;
+    --fg-color: #d7d2b4;
+    --div-color: #f5f5dc;
+    --text-color: #000;
+    --div-shadow: 0 0px 10px black;
+}
+
 main {
     --color-prettylights-syntax-comment: #6e7781;
     --color-prettylights-syntax-constant: #0550ae;

@@ -17,9 +17,10 @@
     font-family: 'slboot', 'MDL2', 'msyhl';
 }
 
-html, body {
+body {
     margin: 0;
     background-color: var(--bg-color);
+    overflow: hidden;
 }
 
 .container {
@@ -28,16 +29,21 @@ html, body {
     min-height: 100vh;
 }
 
-#load {
-    position: fixed;
+.center {
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: var(--bg-color);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#load {
+    position: fixed;
+    background-color: var(--bg-color);
     transition: opacity 0.5s ease;
     z-index: 999;
 }
@@ -53,159 +59,253 @@ html, body {
 #main {
     padding-top: 48px;
     flex: 1;
-    overflow: hidden;
 }
 
 
 /* Navbar */
-#navbar {
+/* 导航栏核心样式 - 保持原有视觉效果不变 */
+/* 新增：下拉菜单触发器（定位上下文） */
+
+.navbar {
     height: 48px;
-    display: flex;
     background-color: var(--fg-color);
+    display: flex;
+    align-items: center;
     justify-content: space-between;
     box-shadow: var(--div-shadow);
+    position: relative; /* 新增：确保子元素绝对定位正确 */
+    z-index: 2; /* 确保导航栏在最上层 */
 }
 
-#mobile-navbar {
+/* 移动端侧边栏 - 优化过渡与层级 */
+.mobile-navbar {
     position: fixed;
     top: 0;
     left: -260px;
     width: 250px;
-    height: 100%;
+    height: 100vh; /* 改为视口高度，兼容性更好 */
     background-color: var(--fg-color);
     box-shadow: var(--div-shadow);
     transition: left 0.5s cubic-bezier(0.2, 0.6, 0.4, 1);
-    z-index: -1;
     display: none;
+    overflow-y: auto; /* 新增：内容溢出时可滚动 */
+    z-index: 1; /* 提升层级，避免被遮挡 */
 }
 
-#mobile-navbar.visible {
+.mobile-navbar.visible {
     left: 0;
 }
 
-#navbar .link,
-#mobile-navbar .link {
-    display: flex;
-    align-items: center;
-    user-select: none;
+/* 导航链接容器 - 统一基础样式 */
+.navbar_link,
+.mobile-navbar_link {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-#mobile-navbar .link {
-    flex-direction: column;
-    padding-top: 64px;
+.mobile-navbar_link {
+  flex-direction: column;
+  padding-top: 64px;
+  width: 100%;
 }
 
-#navbar .link a,
-#mobile-navbar .link a {
-    color: #000;
-    text-decoration: none;
-    transition: color 300ms, text-shadow 300ms;
+.navbar_link a,
+.mobile-navbar_link a {
+  color: #000;
+  text-decoration: none;
+  transition: color 300ms ease, text-shadow 300ms ease, background-color 300ms ease;
 }
 
-#navbar .link a:hover,
-#mobile-navbar .link a:hover {
-    color: #fff;
-    text-shadow: 4px 4px 4px #000;
-    cursor: pointer;
+.navbar_link a:hover,
+.mobile-navbar_link a:hover {
+  color: #fff;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5); /* 增加透明度，更柔和 */
+  cursor: pointer;
 }
 
-#navbar .link a {
-    margin-left: 30px;
+.navbar_link a {
+  padding: 8px 15px; /* 新增：优化点击区域 */
 }
 
-#mobile-navbar .link a {
-    padding: 16px 0;
-    text-align: center;
-    width: 100%;
+/* 移动端链接样式 - 优化点击区域 */
+.mobile-navbar_link a {
+  padding: 16px 0;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box; /* 确保宽度包含内边距 */
 }
 
-#mobile-navbar .link a:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+.mobile-navbar_link a:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-#navbar .link span,
-#mobile-navbar .link span {
-    vertical-align: -2px;
+/* 图标垂直对齐 - 优化兼容性 */
+.navbar_link span,
+.mobile-navbar_link span {
+  vertical-align: middle; /* 替换-2px，兼容性更好 */
+  line-height: 1; /* 确保行高一致 */
 }
 
-#navbar .link a[id=menu],
-#mobile-navbar .link a[id=menu] {
-    display: none;
+/* 菜单按钮隐藏控制 - 语义化命名 */
+.navbar_link a#menu,
+.mobile-navbar_link a#menu {
+  display: none;
 }
 
-#navbar .logo {
-    width: 162px;
-    height: 48px;
-    background-image: url('/imgs/navtitle.jpg');
-    background-size: cover;
-    background-position: center;
-    transform: rotate(-5deg);
-    transition: all 1s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Logo样式 - 保持原有动画效果 */
+.navbar_logo {
+  min-width: 162px;
+  height: 48px;
+  margin-right: 15px;
+  background-image: url('/imgs/navtitle.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: rotate(-5deg);
+  transition: transform 1s ease; /* 明确过渡属性 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; /* 新增：提示可点击 */
 }
 
-#navbar .logo span {
-    font-size: 28px;
+.navbar_logo span {
+  font-size: 28px;
+  transition: opacity 0.3s ease;
 }
 
-#navbar .logo:hover {
-    transform: rotate(5deg);
+.navbar_logo:hover {
+  transform: rotate(5deg);
 }
 
-#navbar .logo.spin {
-    animation: rotate 0.6s forwards;
+/* 导航按钮样式 - 优化交互体验 */
+.navbar button {
+  width: 42px;
+  height: 42px;
+  margin: 2px 2px 0 0;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 300ms ease;
+  cursor: pointer; /* 明确指针样式 */
+  outline: none; /* 清除默认轮廓 */
+  padding: 0; /* 清除默认内边距 */
 }
 
-@keyframes rotate {
-    0% {
-        transform: rotate(5deg);
-    }
-    100% {
-        transform: rotate(365deg);
-    }
+.navbar button span {
+  margin-top: 2px;
+  font-size: 18px;
+  color: #000;
+  transition: color 300ms ease, text-shadow 300ms ease;
 }
 
-#navbar button {
-    width: 40px;
-    height: 40px;
-    padding: 10px;
-    margin: 4px;
-    background-color: transparent;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    place-items: center;
-    transition: background-color 300ms;
+.navbar button:hover span {
+  color: #fff;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
-#navbar button span {
-    position: relative;
-    top: 1px;
-    font-size: 18px;
-    color: #000;
-    transition: color 300ms, text-shadow 300ms;
+.navbar button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-#navbar button:hover span {
-    color: #fff;
-    text-shadow: 4px 4px 4px #000;
+.navbar button:active {
+  transition: background-color 100ms ease;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-#navbar button:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+/* 下拉菜单样式 - 优化定位与显示 */
+.dropdown {
+margin-left: 30px;
+  width: 140px;
+  padding: 10px 0; /* 调整内边距，让链接更均匀 */
+  background-color: var(--div-color);
+  box-shadow: var(--div-shadow);
+  position: absolute;
+  top: 100%; /* 改为相对父元素底部，更稳定 */
+  z-index: 1001;
+  opacity: 0; /* 新增：为hover显示做准备 */
+  visibility: hidden; /* 新增：避免hover前占用空间 */
+  transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
 }
 
-#navbar button:active {
-    transition: background-color 100ms;
-    background-color: rgba(0, 0, 0, 0.4);
+/* 下拉菜单三角箭头 - 优化位置 */
+.dropdown::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 2px;
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent var(--div-color) transparent;
+  z-index: -1; /* 调整层级，避免遮挡菜单 */
 }
 
-#mobile-navbar.visible {
-    left: 0;
+.dropdown_trigger {
+  position: relative; /* 关键：让下拉菜单相对于自己定位 */
+  display: inline-flex; /* 保持与其他菜单按钮横向对齐 */
+  align-items: center;
+}
+
+/* 下拉菜单链接容器 - 优化布局 */
+.dropdown_link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* 新增：链接间距，更舒适 */
+}
+
+/* 下拉菜单链接 - 优化点击区域 */
+.dropdown_link a {
+    margin-left: 0 !important;
+  padding: 8px 16px; /* 左右加内边距，更易点击 */
+  width: 100%;
+  color: #000;
+  text-decoration: none;
+  transition: color 300ms ease, background-color 300ms ease;
+  margin: 0; /* 清除桌面端的margin-left */
+  text-align: left; /* 左对齐，更符合下拉菜单习惯 */
+}
+
+/* 下拉菜单链接hover - 新增背景效果 */
+.dropdown_link a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+/* 其他链接箭头 - 补充字体图标依赖说明 */
+a#other::after {
+  content: "\e011";
+  font-size: 10px;
+  margin-left: 4px; /* 新增：与文字间距 */
+  vertical-align: middle;
+}
+
+/* 父元素hover显示下拉菜单 - 补充交互逻辑 */
+.dropdown_trigger:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(4px); /* 微调位置，增加动态感 */
+}
+
+/* 响应式适配 - 确保移动端菜单按钮显示（根据原有逻辑补充） */
+@media (max-width: 768px) {
+  #navbar .link a:not(#menu) {
+    display: none; /* 移动端隐藏普通链接 */
+  }
+  
+  #navbar .link a#menu {
+    display: block; /* 移动端显示菜单按钮 */
+  }
+  
+  #mobile-navbar {
+    display: block; /* 移动端显示侧边栏容器 */
+  }
 }
 
 
@@ -432,6 +532,14 @@ html, body {
 }
 
 
+.highlight {
+    background-color: var(--fg-color);
+    padding: 15px;
+    font-family: Consolas, 'Courier New', monospace;
+    overflow-x: auto;
+}
+
+
 /* Blockquote */
 blockquote {
     background: url('/imgs/blockquote.jpg') repeat;
@@ -492,7 +600,7 @@ blockquote footer{
 .toc ul {
     height: 100%;
     margin: 0;
-    padding: 0;
+    padding-left: 16px;
     list-style: none;
     overflow-y: auto;
 }
@@ -687,19 +795,19 @@ blockquote footer{
 }
 
 @media (max-width: 800px) {
-    #navbar .link a {
+    .navbar_link a {
         display: none;
     }
 
-    #mobile-navbar {
+    .mobile-navbar {
         display: block;
     }
 
-    #navbar .link a[id=menu] {
+    .navbar_link a#menu {
         display: block;
     }
 
-    #navbar .logo {
+    .navbar_logo {
         width: 140px;
     }
 

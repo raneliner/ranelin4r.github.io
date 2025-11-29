@@ -3,12 +3,12 @@
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=0.8,maximum-scale=0.8,user-scalable=0">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
         <meta name="generator" content="Hexo">
         <meta name="author" content="RaneLiner">
         <meta name="keywords" content="blog,raneliner,develop,life,game">
-        <meta name="title" content="ARCHIVES | RaneLiner">
-        <meta name="description" content="Raneliner Personal Develop Blog Site.">
+        <meta name="og:title" content="ARCHIVES | RaneLiner">
+        <meta name="og:description" content="Raneliner Personal Develop Blog Site.">
         <link rel="icon" href="/imgs/favicon.png">
         <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/extra.css">
@@ -16,66 +16,153 @@
         <title>ARCHIVES | RaneLiner</title>
     </head>
     <body>
-        <div id="load">
+        <div id="load" class="center">
             <img src="/imgs/throbber.svg" alt="">
         </div>
         <div class="container">
             <header id="header">
                 
-<nav id="navbar">
-    <div class="link">
-        <div class="logo" id="logo">
-            <span>ARCHIVES</span>
-        </div>
-        
-        <a href="javascript:void(0);" id="menu" >
-            <span>&#xe700;</span>&ensp;MENU
-        </a>
-        <a href="/" id="" >
-            <span>&#xe10f;</span>&ensp;HOME
-        </a>
-        <a href="/archives" id="" >
-            <span>&#xe7b8;</span>&ensp;ARCHIVES
-        </a>
-        <a href="/tags" id="" >
-            <span>&#xe8ec;</span>&ensp;TAGS
-        </a>
-        <a href="/projects" id="" >
-            <span>&#xeca5;</span>&ensp;PROJECTS
-        </a>
-        <a href="/about" id="" >
-            <span>&#xe13d;</span>&ensp;ABOUT
-        </a>
+
+
+<nav class="navbar">
+  <ul class="navbar_link">
+    <div class="navbar_logo">
+      <span>ARCHIVES</span>
     </div>
-    <button id="switcher" class="ripple-button" title="设置">
-        <span>&#xe115;</span>
-    </button>
+    
+  
+    
+    
+      <a href="javascript:void(0);" id="menu" data-pjax>
+        <span>&#xe700;</span>&ensp;MENU
+      </a>
+    
+  
+    
+    
+      <a href="/" id="" data-pjax>
+        <span>&#xe10f;</span>&ensp;HOME
+      </a>
+    
+  
+    
+    
+      <a href="/archives" id="" data-pjax>
+        <span>&#xe7b8;</span>&ensp;ARCHIVES
+      </a>
+    
+  
+    
+    
+      <a href="/tags" id="" data-pjax>
+        <span>&#xe8ec;</span>&ensp;TAGS
+      </a>
+    
+  
+    
+    
+      <div class="dropdown_trigger">
+        <a href="javascript:void(0);" id="other" data-pjax>
+          <span>&#xeca5;</span>&ensp;OTHERS
+        </a>
+        <li class="dropdown">
+          <div class="dropdown_link">
+            
+            
+              <a href="/projects" data-pjax>
+                <span>&#xe74c;</span>&ensp;PROJECTS
+              </a>
+            
+            
+              <a href="/gallery" data-pjax>
+                <span>&#xeb9f;</span>&ensp;GALLERY
+              </a>
+            
+          </div>
+        </li>
+      </div>
+    
+  
+    
+    
+      <a href="/about" id="" data-pjax>
+        <span>&#xe13d;</span>&ensp;ABOUT
+      </a>
+    
+  
+
+  </ul>
+  <button id="switcher" title="设置">
+    <span>&#xe115;</span>
+  </button>
 </nav>
 
-<nav id="mobile-navbar">
-    <div class="link">
-        
-        <a href="javascript:void(0);" id="menu" >
-            <span>&#xe700;</span>&ensp;MENU
+<aside class="mobile-navbar">
+  <ul class="mobile-navbar_link">
+    
+  
+    
+    
+      <a href="javascript:void(0);" id="menu" data-pjax>
+        <span>&#xe700;</span>&ensp;MENU
+      </a>
+    
+  
+    
+    
+      <a href="/" id="" data-pjax>
+        <span>&#xe10f;</span>&ensp;HOME
+      </a>
+    
+  
+    
+    
+      <a href="/archives" id="" data-pjax>
+        <span>&#xe7b8;</span>&ensp;ARCHIVES
+      </a>
+    
+  
+    
+    
+      <a href="/tags" id="" data-pjax>
+        <span>&#xe8ec;</span>&ensp;TAGS
+      </a>
+    
+  
+    
+    
+      <div class="dropdown_trigger">
+        <a href="javascript:void(0);" id="other" data-pjax>
+          <span>&#xeca5;</span>&ensp;OTHERS
         </a>
-        <a href="/" id="" >
-            <span>&#xe10f;</span>&ensp;HOME
-        </a>
-        <a href="/archives" id="" >
-            <span>&#xe7b8;</span>&ensp;ARCHIVES
-        </a>
-        <a href="/tags" id="" >
-            <span>&#xe8ec;</span>&ensp;TAGS
-        </a>
-        <a href="/projects" id="" >
-            <span>&#xeca5;</span>&ensp;PROJECTS
-        </a>
-        <a href="/about" id="" >
-            <span>&#xe13d;</span>&ensp;ABOUT
-        </a>
-    </div>
-</nav>
+        <li class="dropdown">
+          <div class="dropdown_link">
+            
+            
+              <a href="/projects" data-pjax>
+                <span>&#xe74c;</span>&ensp;PROJECTS
+              </a>
+            
+            
+              <a href="/gallery" data-pjax>
+                <span>&#xeb9f;</span>&ensp;GALLERY
+              </a>
+            
+          </div>
+        </li>
+      </div>
+    
+  
+    
+    
+      <a href="/about" id="" data-pjax>
+        <span>&#xe13d;</span>&ensp;ABOUT
+      </a>
+    
+  
 
+  </ul>
+</aside>
             </header>
             <main id="main">
                 <div class="search-bar">
@@ -83,62 +170,20 @@
 </div>
 
 <script>
-    const inputEl = document.getElementById('searchInput');
+    document.getElementById('searchInput').onkeyup = () => {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const cards = document.querySelectorAll('.card');
 
-    // 为每个 card 添加一次 transitionend 处理（用于在动画结束后设置 display:none / 清理延迟）
-    function ensureTransitionHandler(card) {
-        if (card._filterHandlerAttached) return;
-        card.addEventListener('transitionend', (e) => {
-            // 监听 max-height 或 opacity 结束，确认仍处于 filtered-out 状态再隐藏并清理 transitionDelay
-            if (card.classList.contains('filtered-out') && (e.propertyName === 'max-height' || e.propertyName === 'opacity')) {
-                card.style.display = 'none';
-                card.style.transitionDelay = '';
-            }
-            // 如果是显示完毕，也清理 transitionDelay
-            if (!card.classList.contains('filtered-out') && (e.propertyName === 'opacity' || e.propertyName === 'transform')) {
-                card.style.transitionDelay = '';
-            }
-        });
-        card._filterHandlerAttached = true;
-    }
-
-    inputEl.addEventListener('input', () => {
-        const filter = inputEl.value.toLowerCase();
-        const nodeList = Array.from(document.querySelectorAll('.card'));
-
-        nodeList.forEach((card, idx) => {
-            ensureTransitionHandler(card);
-
-            // 添加微小的交错延迟，使批量隐藏/显示更顺滑（例如 20~40ms）
-            const stagger = idx * 28; // 可调，增大会更缓和但总体延迟更长
-            card.style.transitionDelay = `${stagger}ms`;
-
-            const titleEl = card.querySelector('.card-main p, .card-info p, p');
-            const title = titleEl ? titleEl.textContent.toLowerCase() : '';
-
+        cards.forEach(card => {
+            const title = card.querySelector('p').textContent.toLowerCase();
             if (title.includes(filter)) {
-                // 显示：先确保 display 可见，再移除类触发过渡
                 card.style.display = '';
-                // 强制重绘，确保移除类时 transition 生效
-                requestAnimationFrame(() => {
-                    // 清除可能残留的 display:none 或 filtered-out
-                    card.classList.remove('filtered-out');
-                    // 在下一帧再清除 delay（由 transitionend 最终清理），避免瞬闪
-                    requestAnimationFrame(() => {
-                        // 不立即清 transitionDelay，等待 transitionend 清理以保留 stagger 效果
-                    });
-                });
             } else {
-                // 隐藏：确保从可见状态过渡到 filtered-out
-                if (getComputedStyle(card).display === 'none') {
-                    card.style.display = '';
-                    requestAnimationFrame(() => card.classList.add('filtered-out'));
-                } else {
-                    card.classList.add('filtered-out');
-                }
+                card.style.display = 'none';
             }
         });
-    });
+    }
 </script>
 <section class="card-container">
     
@@ -168,10 +213,10 @@
     
 </section>
 
-                <a id="back2top" href="#top">
-                    <span>BACK 2 TOP</span>
-                </a>
             </main>
+            <a id="back2top" href="#top">
+                <span>BACK 2 TOP</span>
+            </a>
             <footer class="footer">
                 <span>&copy;2023 - 2025 | Created by @RaneLiner</span>
                 <span>Powered by<a target="_blank" rel="noopener" href="https://hexo.io">Hexo.</a> (Testing)</span>
@@ -182,12 +227,12 @@
   <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.21/hexo_githubcalendar.js"></script>
   <script data-pjax>
         function GithubCalendarConfig(){
-            var git_githubapiurl ="https://python-github-calendar-api.vercel.app/api?raneliner";
+            var git_githubapiurl ="https://python-github-calendar-api.vercel.app/api?zfour";
             var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
-            var git_user ="raneliner";
+            var git_user ="zfour";
             var parent_div_git = document.getElementById('recent-posts');
             var git_div_html = '<div class="recent-post-item" style="width:100%;height:auto;padding:10px;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
-            if(parent_div_git && location.pathname =='/'){
+            if(parent_div_git && location.pathname =='/about'){
                 console.log('已挂载github calendar')
                 // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
                 parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
@@ -202,6 +247,7 @@
     <style></style><!-- hexo injector body_end end --></body>
     <script src="/js/lenis.js"></script>
 <script src="/js/smooth-scroll.polyfills.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pjax@1.0.0/pjax.js"></script>
 <script src="/js/script.js"></script>
 
 

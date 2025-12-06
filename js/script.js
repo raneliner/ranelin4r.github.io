@@ -1,108 +1,78 @@
-const back2top = document.getElementById('back2top');
+(() => {
+    function scrollCheck() {
+        const back2top = document.getElementById('back2top');
 
-function scrollCheck() {
-    if (window.scrollY > 100) {
-        back2top.classList.remove('hidden');
-    } else {
-        back2top.classList.add('hidden');
+        if (window.scrollY > 100) {
+            back2top.classList.remove('hidden');
+        } else {
+            back2top.classList.add('hidden');
+        }
     }
-}
 
-window.addEventListener('scroll', scrollCheck);
+    window.addEventListener('scroll', scrollCheck);
 
-function Init() {
-    var scroll = new SmoothScroll('a[href*="#"]', {
-        offset: 72,
-        speed: 1000,
-        speedAsDuration: true,
-        easing: 'easeInOutQuart'
-    });
+    function Init() {
+        var scroll = new SmoothScroll('a[href*="#"]', {
+            offset: 72,
+            speed: 1000,
+            speedAsDuration: true,
+            easing: 'easeInOutQuart'
+        });
 
-    const lenis = new Lenis();
-    function raf(time) {
-        lenis.raf(time);
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
         requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
-}
 
-const logo = document.querySelector('.navbar_logo');
-const logo_text = document.querySelector('.navbar_logo span');
-const prev = logo_text.innerHTML;
+    const load = document.getElementById('load');
+    const header = document.getElementById('header');
 
-logo.onmouseover = function() {
-    logo_text.style.opacity = 0;
-    setTimeout(() => {
-        logo_text.innerHTML = '🏠';
-        logo_text.style.opacity = 1;
-    }, 300);
-    setTimeout(() => {
-        logo_text.style.opacity = 0;
-    }, 2000);
-    setTimeout(() => {
-    logo_text.innerHTML = prev;
-    logo_text.style.opacity = 1;
-    }, 2300);
-}
+    window.addEventListener('load', function() {
+        header.style.top = '0';
+        document.body.overflow = 'visible';
+        setTimeout(() => {
+            load.style.opacity = '0';
+        },500);
+        setTimeout(() => {
+            load.style.zIndex = '-114';
+        },1000);
+        
+        scrollCheck();
+        Init();
+    });
+})()
 
 
-const menuBtn = document.getElementById('menu');
-const mobile = document.querySelector('.mobile-navbar');
+    const menuBtn = document.getElementById('menu');
+    const mobile = document.querySelector('.mobile-navbar');
 
-menuBtn.onclick = function() {
+    menuBtn.onclick = function() {
 
-    // 确保可聚焦以便监听 focusout
-    if (!mobile.hasAttribute('tabindex')) mobile.setAttribute('tabindex', '-1');
+        // 确保可聚焦以便监听 focusout
+        if (!mobile.hasAttribute('tabindex')) mobile.setAttribute('tabindex', '-1');
 
-    const opened = mobile.classList.toggle('visible');
+        const opened = mobile.classList.toggle('visible');
 
-    if (opened) {
-        // 打开时聚焦，失去焦点则收回
-        mobile.focus();
+        if (opened) {
+            // 打开时聚焦，失去焦点则收回
+            mobile.focus();
 
-        const onFocusOut = (e) => {
-            const related = e.relatedTarget;
-            if (!related || !mobile.contains(related)) {
-                mobile.classList.remove('visible');
-                mobile.removeEventListener('focusout', onFocusOut);
-            }
-        };
-        mobile.addEventListener('focusout', onFocusOut);
-    }
-};
-
-const load = document.getElementById('load');
-const header = document.getElementById('header');
-const menu = document.getElementById('mobile-navbar');
-
-
-
-/*
-document.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', function (e) {
-    const a = this;
-    const href = a.href;
-
-    if (!href) return;
-    if (a.hash || href === 'javascript:void(0);') return;
-
-    e.preventDefault();
-
-    document.body.style.overflow = 'hidden';
-    menu.style.left = '-260px';
-    header.style.top = '-60px';
-    load.style.zIndex = '999';
-    load.style.opacity = '1';
-
-    setTimeout(() => {
-      window.location.href = href;
-    }, 400);
-  });
-});
-*/
+            const onFocusOut = (e) => {
+                const related = e.relatedTarget;
+                if (!related || !mobile.contains(related)) {
+                    mobile.classList.remove('visible');
+                    mobile.removeEventListener('focusout', onFocusOut);
+                }
+            };
+            mobile.addEventListener('focusout', onFocusOut);
+        }
+    };
 
 /* Image lightbox for post images */
-(function(){
+(() => {
     function createLightboxDOM(){
         if (document.getElementById('theme-lightbox')) return document.getElementById('theme-lightbox');
         const wrapper = document.createElement('div');
@@ -110,14 +80,17 @@ document.querySelectorAll('a').forEach(link => {
         wrapper.innerHTML = `
             <div class="lb-overlay" tabindex="-1" role="dialog" aria-hidden="true">
                 <button class="lb-prev" aria-label="上一张">&#xe112;</button>
-                <div class="lb-inner"><img class="lb-img" src="" alt=""><div class="lb-caption"></div></div>
+                <div class="lb-inner">
+                    <img class="lb-img" src="" alt="">
+                    <div class="lb-caption"></div>
+                </div>
                 <button class="lb-next" aria-label="下一张">&#xe111;</button>
             </div>`;
         document.body.appendChild(wrapper);
         return wrapper;
     }
 
-    function initImageLightbox(selector = '.post-content img'){
+    function initImageLightbox(selector = '.post-content p img'){
         const imgs = Array.from(document.querySelectorAll(selector));
         if (!imgs.length) return;
         const root = createLightboxDOM();
@@ -180,76 +153,42 @@ document.querySelectorAll('a').forEach(link => {
     document.addEventListener('DOMContentLoaded', () => initImageLightbox());
 })();
 
-/*
-document.addEventListener('DOMContentLoaded', function() {
-    const pj = new Pjax({
-        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"])',   // 拦截正常带链接的 a 标签
-        selectors: ["#main","title","#logo","#back2top"]                                   // 根据实际需要确认重载区域
-    });
+(() => {
+    const container = document.querySelector('.friends-link');
+    if (!container) return;
 
-    document.addEventListener('pjax:send', function() {
-        document.body.style.overflow = 'hidden';
-        menu.style.left = '-260px';
-        header.style.top = '-60px';
-        load.style.zIndex = '999';
-        load.style.opacity = '1';
-    });
-
-    document.addEventListener('pjax:beforeReplace', function(e) {
-        e.preventDefault(); // 阻止 Pjax 默认立即替换
-
-        // Pjax 0.2.4 中，e.detail 包含所有重载区域的新内容（而非 e.target）
-        // 因为你的 selectors 有多个（#main、#logo、#back2top），需遍历替换
-        const newContents = e.detail; // newContents 是对象：{ selector: 新DOM元素 }
-
-        // 延迟 300ms（过渡动画结束后）执行替换
-        setTimeout(function() {
-        // 遍历所有需要重载的区域，手动替换 DOM
-        Object.keys(newContents).forEach(selector => {
-            const oldElement = document.querySelector(selector);
-            const newElement = newContents[selector];
-            if (oldElement && newElement) {
-            oldElement.parentNode.replaceChild(newElement, oldElement);
-            }
-        });
-
-        // 替换后，恢复新内容的显示状态（移除过渡类）
-        const newMain = document.querySelector('#main');
-        newMain.classList.remove('pjax-fade-out');
-
-        // 通知 Pjax 替换完成，触发后续 complete 事件（关键！）
-        pj.fire('replace', newContents);
-        }, fadeDuration); // 延迟时间 = 过渡动画时长（300ms）
-    });
-
-    document.addEventListener('pjax:complete', function() {
-        setTimeout(() => {
-            header.style.top = '0';
-            document.body.overflow = 'visible';
-            setTimeout(() => {
-                load.style.opacity = '0';
-            },500);
-            setTimeout(() => {
-                load.style.zIndex = '-114';
-            },1000);
+    async function loadFriendsFromJSON() {
+        try {
+            const response = await fetch('/json/friends.json');
+            if (!response.ok) throw new Error('友链数据加载失败');
+            const friendsJSON = await response.json();
             
-            scrollCheck();
-            Init();
-        }, 400);
-    });
-});
-*/
+            container.innerHTML = '';
 
-window.addEventListener('load', function() {
-    header.style.top = '0';
-    document.body.overflow = 'visible';
-    setTimeout(() => {
-        load.style.opacity = '0';
-    },500);
-    setTimeout(() => {
-        load.style.zIndex = '-114';
-    },1000);
-    
-    scrollCheck();
-    Init();
-});
+            friendsJSON.friends.forEach(friend => {
+                const friendHTML = `
+                    <a class="friend-item" href="${friend.url}" target="_blank" rel="noopener noreferrer">
+                        <img src="${friend.avatar}" alt="${friend.name}" loading="lazy">
+                        <div class="friend-info">
+                            <span>${friend.title}</span>
+                            <p><i>${friend.name}</i> • ${friend.desc}</p>
+                        </div>
+                    </a>
+                `;
+                container.innerHTML += friendHTML;
+            });
+        } catch (error) {
+            console.error(error);
+            const errorContainer = document.getElementById('friendsContainer') || document.querySelector('.friends-link');
+            if (errorContainer) {
+                errorContainer.innerHTML = '<p>甚是悲哉。</p>';
+            }
+        }
+    }
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        loadFriendsFromJSON();
+    } else {
+        window.addEventListener('DOMContentLoaded', loadFriendsFromJSON);
+    }
+})();

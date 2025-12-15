@@ -1,6 +1,22 @@
-(() => {
+(function () {
+
+    /* =======================
+     * State
+     * ======================= */
+
+    let lenis = null;
+    let lastScrollY = 0;
+
+    const header = document.querySelector('.navbar');
+    const load = document.getElementById('load');
+
+    /* =======================
+     * Scroll
+     * ======================= */
+
     function scrollCheck() {
         const back2top = document.getElementById('back2top');
+        if (!back2top) return;
 
         if (window.scrollY > 100) {
             back2top.classList.remove('hidden');
@@ -9,186 +25,176 @@
         }
     }
 
-    window.addEventListener('scroll', scrollCheck);
+    function handleNavScroll() {
+        const currentScrollY = window.scrollY;
 
-    function Init() {
-        var scroll = new SmoothScroll('a[href*="#"]', {
+        if (currentScrollY > lastScrollY) {
+            if (currentScrollY < 100) return;
+            header.classList.remove('show');
+        } else {
+            header.classList.add('show');
+        }
+
+        lastScrollY = currentScrollY;
+    }
+
+    window.addEventListener('scroll', () => {
+        scrollCheck();
+        handleNavScroll();
+    }, { passive: true });
+
+    /* =======================
+     * Global Init (once)
+     * ======================= */
+
+    function initGlobal() {
+
+        new SmoothScroll('a[href*="#"]', {
             offset: 72,
             speed: 1000,
             speedAsDuration: true,
             easing: 'easeInOutQuart'
         });
 
-        const lenis = new Lenis();
+        lenis = new Lenis();
         function raf(time) {
             lenis.raf(time);
             requestAnimationFrame(raf);
         }
         requestAnimationFrame(raf);
+
+        bindMenu();
     }
 
-    const load = document.getElementById('load');
-    const header = document.getElementById('header');
+    function bindMenu() {
+        const menuBtn = document.getElementById('menu');
+        const mobile = document.querySelector('.mobile-navbar');
 
-    window.addEventListener('load', function() {
-        header.style.top = '0';
-        document.body.overflow = 'visible';
-        setTimeout(() => {
-            load.style.opacity = '0';
-        },500);
-        setTimeout(() => {
-            load.style.zIndex = '-114';
-        },1000);
-        
+        if (!menuBtn || !mobile) return;
+
+        menuBtn.onclick = () => {
+            if (!mobile.hasAttribute('tabindex')) {
+                mobile.setAttribute('tabindex', '-1');
+            }
+
+            const opened = mobile.classList.toggle('visible');
+
+            if (opened) {
+                mobile.focus();
+                const onFocusOut = e => {
+                    if (!mobile.contains(e.relatedTarget)) {
+                        mobile.classList.remove('visible');
+                        mobile.removeEventListener('focusout', onFocusOut);
+                    }
+                };
+                mobile.addEventListener('focusout', onFocusOut);
+            }
+        };
+    }
+
+    /* =======================
+     * Page Init (per enter)
+     * ======================= */
+
+    function initPage() {
         scrollCheck();
-        Init();
-    });
-})()
-
-
-    const menuBtn = document.getElementById('menu');
-    const mobile = document.querySelector('.mobile-navbar');
-
-    menuBtn.onclick = function() {
-
-        // 确保可聚焦以便监听 focusout
-        if (!mobile.hasAttribute('tabindex')) mobile.setAttribute('tabindex', '-1');
-
-        const opened = mobile.classList.toggle('visible');
-
-        if (opened) {
-            // 打开时聚焦，失去焦点则收回
-            mobile.focus();
-
-            const onFocusOut = (e) => {
-                const related = e.relatedTarget;
-                if (!related || !mobile.contains(related)) {
-                    mobile.classList.remove('visible');
-                    mobile.removeEventListener('focusout', onFocusOut);
-                }
-            };
-            mobile.addEventListener('focusout', onFocusOut);
-        }
-    };
-
-/* Image lightbox for post images */
-(() => {
-    function createLightboxDOM(){
-        if (document.getElementById('theme-lightbox')) return document.getElementById('theme-lightbox');
-        const wrapper = document.createElement('div');
-        wrapper.id = 'theme-lightbox';
-        wrapper.innerHTML = `
-            <div class="lb-overlay" tabindex="-1" role="dialog" aria-hidden="true">
-                <button class="lb-prev" aria-label="上一张">&#xe112;</button>
-                <div class="lb-inner">
-                    <img class="lb-img" src="" alt="">
-                    <div class="lb-caption"></div>
-                </div>
-                <button class="lb-next" aria-label="下一张">&#xe111;</button>
-            </div>`;
-        document.body.appendChild(wrapper);
-        return wrapper;
+        loadComments();
+        loadFriends();
     }
 
-    function initImageLightbox(selector = '.post-content p img'){
-        const imgs = Array.from(document.querySelectorAll(selector));
-        if (!imgs.length) return;
-        const root = createLightboxDOM();
-        const overlay = root.querySelector('.lb-overlay');
-        const imgEl = root.querySelector('.lb-img');
-        const captionEl = root.querySelector('.lb-caption');
-        const btnPrev = root.querySelector('.lb-prev');
-        const btnNext = root.querySelector('.lb-next');
+    function loadComments() {
+        const commentEle = document.querySelector('.comment');
+        if (!commentEle) return;
+        //if (commentEle.children.length > 0) return;
 
-        let current = -1;
+        const s = document.createElement('script');
+        s.src = 'https://giscus.app/client.js';
+        s.async = true;
+        s.crossOrigin = 'anonymous';
 
-        function open(index){
-            if (index < 0 || index >= imgs.length) return;
-            current = index;
-            const src = imgs[current].getAttribute('data-large') || imgs[current].src;
-            const alt = imgs[current].alt || '';
-            imgEl.src = src;
-            imgEl.alt = alt;
-            captionEl.textContent = alt;
-            document.body.classList.add('lightbox-open');
-            overlay.classList.add('open');
-            overlay.focus();
-        }
+        s.setAttribute('data-repo', 'raneliner/ranelin4r.github.io');
+        s.setAttribute('data-repo-id', 'R_kgDOMpVltQ');
+        s.setAttribute('data-category', 'Announcements');
+        s.setAttribute('data-category-id', 'DIC_kwDOMpVltc4Cx0Cx');
+        s.setAttribute('data-mapping', 'url');
+        s.setAttribute('data-strict', '0');
+        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-emit-metadata', '0');
+        s.setAttribute('data-input-position', 'bottom');
+        s.setAttribute('data-theme', 'light');
+        s.setAttribute('data-lang', 'zh-CN');
 
-        function close(){
-            overlay.classList.remove('open');
-            setTimeout(() => {
-                document.body.classList.remove('lightbox-open');
-                imgEl.src = '';
-            }, 300);
-        }
-
-        function prev(){ open((current - 1 + imgs.length) % imgs.length); }
-        function next(){ open((current + 1) % imgs.length); }
-
-        imgs.forEach((el, idx) => {
-            el.style.cursor = 'zoom-in';
-            el.addEventListener('click', (e) => {
-                e.preventDefault();
-                open(idx);
-            });
-        });
-
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) close();
-        });
-        btnPrev.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
-        btnNext.addEventListener('click', (e) => { e.stopPropagation(); next(); });
-
-        document.addEventListener('keydown', (e) => {
-            if (!overlay.classList.contains('open')) return;
-            if (e.key === 'Escape') close();
-            if (e.key === 'ArrowLeft') prev();
-            if (e.key === 'ArrowRight') next();
-        });
+        commentEle.appendChild(s);
     }
 
-    // 暴露初始化函数并自动在 DOMContentLoaded 时初始化
-    window.initImageLightbox = initImageLightbox;
-    document.addEventListener('DOMContentLoaded', () => initImageLightbox());
-})();
+    async function loadFriends() {
+        const container = document.querySelector('.friends-link');
+        if (!container) return;
 
-(() => {
-    const container = document.querySelector('.friends-link');
-    if (!container) return;
-
-    async function loadFriendsFromJSON() {
         try {
-            const response = await fetch('/json/friends.json');
-            if (!response.ok) throw new Error('友链数据加载失败');
-            const friendsJSON = await response.json();
-            
-            container.innerHTML = '';
+            const res = await fetch('/json/friends.json');
+            const json = await res.json();
 
-            friendsJSON.friends.forEach(friend => {
-                const friendHTML = `
-                    <a class="friend-item" href="${friend.url}" target="_blank" rel="noopener noreferrer">
-                        <img src="${friend.avatar}" alt="${friend.name}" loading="lazy">
+            container.innerHTML = '';
+            json.friends.forEach(friend => {
+                container.insertAdjacentHTML('beforeend', `
+                    <a class="friend-item" href="${friend.url}" target="_blank">
+                        <img src="${friend.avatar}" alt="${friend.name}">
                         <div class="friend-info">
                             <span>${friend.title}</span>
-                            <p><i>${friend.name}</i> • ${friend.desc}</p>
+                            <p>${friend.name} • ${friend.desc}</p>
                         </div>
                     </a>
-                `;
-                container.innerHTML += friendHTML;
+                `);
             });
-        } catch (error) {
-            console.error(error);
-            const errorContainer = document.getElementById('friendsContainer') || document.querySelector('.friends-link');
-            if (errorContainer) {
-                errorContainer.innerHTML = '<p>甚是悲哉。</p>';
-            }
+        } catch {
+            container.innerHTML = '<p>甚是悲哉。</p>';
         }
     }
 
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        loadFriendsFromJSON();
-    } else {
-        window.addEventListener('DOMContentLoaded', loadFriendsFromJSON);
+    /* =======================
+     * Header Sync
+     * ======================= */
+
+    function syncHeader(next) {
+        const pageTitle = next.container.dataset.pageTitle;
+        const titleEl = document.getElementById('navbar-title');
+
+        if (titleEl && pageTitle) {
+            titleEl.textContent = pageTitle;
+        }
     }
+
+    /* =======================
+     * Barba
+     * ======================= */
+
+    barba.init({
+        transitions: [{
+            async leave() {
+                header.classList.remove('show');
+                load.classList.remove('hidden');
+                await new Promise(r => setTimeout(r, 400));
+            },
+            enter({ next }) {
+                header.classList.add('show');
+                setTimeout(() => load.classList.add('hidden'), 500);
+                window.scrollTo(0, 0);
+                syncHeader(next);
+                initPage();
+            }
+        }]
+    });
+
+    /* =======================
+     * Boot
+     * ======================= */
+
+    window.addEventListener('load', () => {
+        header.classList.add('show');
+        setTimeout(() => load.classList.add('hidden'), 1000);
+        initGlobal();
+        initPage();
+    });
+
 })();

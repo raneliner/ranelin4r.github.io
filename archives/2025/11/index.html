@@ -1,9 +1,10 @@
 
+
 <!doctype html>
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="viewport" content="width=device-width,initial-scale=0.8,maximum-scale=0.8,user-scalable=no">
         <meta name="generator" content="Hexo">
         <meta name="author" content="RaneLiner">
         <meta name="keywords" content="blog,raneliner,develop,life,game">
@@ -15,10 +16,11 @@
 
         <title>ARCHIVES | RaneLiner</title>
     </head>
-    <body>
+    <body data-barba="wrapper">
         <div id="load" class="center">
             <img src="/imgs/throbber.svg" alt="">
         </div>
+        
         <div class="container">
             <header id="header">
                 
@@ -27,7 +29,7 @@
 <nav class="navbar">
   <ul class="navbar_link">
     <div class="navbar_logo">
-      <span>ARCHIVES</span>
+      <span id="navbar-title">ARCHIVES</span>
     </div>
     
   
@@ -164,7 +166,7 @@
   </ul>
 </aside>
             </header>
-            <main id="main">
+            <main id="main" data-barba="container" data-barba-namespace="namespace" data-page-title="ARCHIVES" data-document-title="ARCHIVES | RaneLiner">
                 <div class="search-bar">
     <input type="text" id="searchInput" placeholder="&#xe1a3;&ensp;想搜索点什么？">
 </div>
@@ -249,7 +251,8 @@
     </script>
     <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
     <style></style><!-- hexo injector body_end end --></body>
-    <script src="/js/lenis.js"></script>
+    <script src="https://unpkg.com/@barba/core"></script>
+<script src="/js/lenis.js"></script>
 <script src="/js/smooth-scroll.polyfills.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pjax@1.0.0/pjax.js"></script>
 <script src="/js/script.js"></script>

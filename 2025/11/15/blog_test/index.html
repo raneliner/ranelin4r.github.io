@@ -1,9 +1,10 @@
 
+
 <!doctype html>
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="viewport" content="width=device-width,initial-scale=0.8,maximum-scale=0.8,user-scalable=no">
         <meta name="generator" content="Hexo">
         <meta name="author" content="RaneLiner">
         <meta name="keywords" content="blog,raneliner,develop,life,game">
@@ -15,10 +16,11 @@
 
         <title>→Blog测试← | RaneLiner</title>
     </head>
-    <body>
+    <body data-barba="wrapper">
         <div id="load" class="center">
             <img src="/imgs/throbber.svg" alt="">
         </div>
+        
         <div class="container">
             <header id="header">
                 
@@ -27,7 +29,7 @@
 <nav class="navbar">
   <ul class="navbar_link">
     <div class="navbar_logo">
-      <span>POST</span>
+      <span id="navbar-title">POST</span>
     </div>
     
   
@@ -164,7 +166,7 @@
   </ul>
 </aside>
             </header>
-            <main id="main">
+            <main id="main" data-barba="container" data-barba-namespace="namespace" data-page-title="POST" data-document-title="→Blog测试← | RaneLiner">
                 <article class="post">
     <div class="post-meta">
         <img class="post-bg" src="/imgs/bgs/pointing.png" alt="">
@@ -229,34 +231,8 @@
 <p><img alt="另一个简单的图片" src="/imgs/bgs/about_flowers.jpg"></p>
 
         
-            <div class="comment">
+            <div class="comment" id="comments">
     <h1>Comments</h1>
-    <script>
-    // 获取当前页面 URL
-    const url = 'https://' + window.location.hostname;
-
-    // 动态注入 giscus（将映射方式改为 url）
-    (function(){
-      const s = document.createElement('script');
-      s.src = 'https://giscus.app/client.js';
-      s.async = true;
-      s.crossOrigin = 'anonymous';
-      s.setAttribute('data-repo', 'raneliner/ranelin4r.github.io');
-      s.setAttribute('data-repo-id', 'R_kgDOMpVltQ');
-      s.setAttribute('data-category', 'Announcements');
-      s.setAttribute('data-category-id', 'DIC_kwDOMpVltc4Cx0Cx');
-      // 使用 URL 映射（giscus 会使用 document.location）
-      s.setAttribute('data-mapping', 'url');
-      s.setAttribute('data-strict', '0');
-      s.setAttribute('data-reactions-enabled', '1');
-      s.setAttribute('data-emit-metadata', '0');
-      s.setAttribute('data-input-position', 'bottom');
-      s.setAttribute('data-theme', 'preferred_color_scheme');
-      s.setAttribute('data-lang', 'zh-CN');
-      // 将脚本插入到当前 script 的父节点（即 .comment 中）
-      document.currentScript.parentNode.appendChild(s);
-    })();
-    </script>
 </div>
 
 
@@ -297,7 +273,8 @@
     </script>
     <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
     <style></style><!-- hexo injector body_end end --></body>
-    <script src="/js/lenis.js"></script>
+    <script src="https://unpkg.com/@barba/core"></script>
+<script src="/js/lenis.js"></script>
 <script src="/js/smooth-scroll.polyfills.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pjax@1.0.0/pjax.js"></script>
 <script src="/js/script.js"></script>

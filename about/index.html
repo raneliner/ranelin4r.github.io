@@ -1,9 +1,10 @@
 
+
 <!doctype html>
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="viewport" content="width=device-width,initial-scale=0.8,maximum-scale=0.8,user-scalable=no">
         <meta name="generator" content="Hexo">
         <meta name="author" content="RaneLiner">
         <meta name="keywords" content="blog,raneliner,develop,life,game">
@@ -15,10 +16,11 @@
 
         <title>ABOUT | RaneLiner</title>
     </head>
-    <body>
+    <body data-barba="wrapper">
         <div id="load" class="center">
             <img src="/imgs/throbber.svg" alt="">
         </div>
+        
         <div class="container">
             <header id="header">
                 
@@ -27,7 +29,7 @@
 <nav class="navbar">
   <ul class="navbar_link">
     <div class="navbar_logo">
-      <span>ABOUT</span>
+      <span id="navbar-title">ABOUT</span>
     </div>
     
   
@@ -164,7 +166,7 @@
   </ul>
 </aside>
             </header>
-            <main id="main">
+            <main id="main" data-barba="container" data-barba-namespace="namespace" data-page-title="ABOUT" data-document-title="ABOUT | RaneLiner">
                 <article class="post">
     <div class="post-meta">
         <img class="post-bg" src="/imgs/bgs/about_flowers.jpg" alt="">
@@ -194,104 +196,6 @@
 
 <div class="friends-link"></div>
 
-<style>
-
-    .friends-link {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 40px;
-        /* 补全父容器宽度，避免换行异常 */
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .friend-item {
-        display: flex;
-        height: auto;
-        border: 1px solid #ccc;
-        width: 100%;
-        text-decoration: none;
-        background: url(/imgs/blockquote.jpg) repeat;
-        background-size: 32px 32px;
-        box-shadow: var(--div-shadow);
-        transition: box-shadow 0.3s ease; /* 补全ease缓动，动画更丝滑 */
-        /* 补全盒模型，避免边框撑大宽度 */
-        box-sizing: border-box;
-        /* 增加内边距，避免内容贴边 */
-        padding: 8px;
-        /* 防止背景重复时的偏移问题 */
-        background-position: 0 0;
-    }
-
-    .friend-item:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .friend-item:hover img {
-        transform: scale(1.4) rotate(0deg);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .friend-item:hover .friend-info {
-        margin-left: 36px;
-    }
-
-    .friend-item img {
-        height: 100px;
-        width: 100px; /* 补全宽度，避免图片拉伸变形 */
-        object-fit: cover; /* 保持图片比例，防止变形 */
-        border: 1px solid #ccc;
-        transform: scale(1.2) rotate(-5deg);
-        background: url(/imgs/blockquote.jpg) repeat;
-        background-size: 32px 32px;
-        transition: transform 0.5s ease, box-shadow 0.5s ease;
-        box-shadow: var(--div-shadow);
-        /* 防止图片溢出 */
-        flex-shrink: 0;
-        background-position: 0 0;
-    }
-
-    .friend-info {
-        color: #000;
-        margin-left: 30px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        transition: margin-left 0.5s ease;
-        /* 补全行高，提升文字可读性 */
-        line-height: 1.5;
-    }
-
-    .friend-info span {
-        font-size: 2em;
-        font-weight: bold;
-        /* 限制文字换行，避免布局错乱 */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .friend-info p {
-        margin: 0;
-        /* 调整字体大小，增强层级感 */
-        font-size: 1em;
-        color: #666; /* 轻微降色，突出标题 */
-    }
-
-    /* 响应式适配（原有样式未覆盖，补充移动端优化） */
-    @media (max-width: 768px) {
-        .friend-info span {
-            font-size: 1.5em;
-        }
-        .friend-item img {
-            height: 80px;
-            width: 80px;
-        }
-        .friends-link {
-            gap: 20px;
-        }
-    }
-</style>
         
     </div>
 </article>
@@ -329,7 +233,8 @@
     </script>
     <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
     <style></style><!-- hexo injector body_end end --></body>
-    <script src="/js/lenis.js"></script>
+    <script src="https://unpkg.com/@barba/core"></script>
+<script src="/js/lenis.js"></script>
 <script src="/js/smooth-scroll.polyfills.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pjax@1.0.0/pjax.js"></script>
 <script src="/js/script.js"></script>

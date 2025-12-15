@@ -2,6 +2,8 @@
     const startDate = new Date(2023, 0, 5, 13, 0, 0, 0); // 注意：月份从0开始，0 = 1月
 
     function updateElapsedTime() {
+        if (!document.getElementById('days')) return;
+
         const now = new Date();
         const difference = now - startDate; // 已过去的毫秒数
 

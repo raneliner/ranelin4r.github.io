@@ -3,7 +3,7 @@
     --fg-color: #d7d2b4;
     --div-color: #f5f5dc;
     --text-color: #000;
-    --div-shadow: 0 0px 10px black;
+    --div-shadow: 0 0px 10px #555;
 }
 
 ::selection {
@@ -44,16 +44,22 @@ body {
     position: fixed;
     background-color: var(--bg-color);
     transition: opacity 0.5s ease;
+    opacity: 1;
+    pointer-events: none;
     z-index: 999;
+}
+
+#load.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 #header {
     position: fixed;
     width: 100%;
     z-index: 1000;
-    top: -60px;
-    transition: top 0.6s cubic-bezier(0.2, 0.6, 0.4, 1);
 }
+
 
 #main {
     padding-top: 48px;
@@ -62,8 +68,6 @@ body {
 
 
 /* Navbar */
-/* 导航栏核心样式 - 保持原有视觉效果不变 */
-/* 新增：下拉菜单触发器（定位上下文） */
 
 .navbar {
     height: 48px;
@@ -72,8 +76,14 @@ body {
     align-items: center;
     justify-content: space-between;
     box-shadow: var(--div-shadow);
-    position: relative; /* 新增：确保子元素绝对定位正确 */
-    z-index: 2; /* 确保导航栏在最上层 */
+    position: relative;
+    z-index: 2;
+    top: -60px;
+    transition: top 0.6s cubic-bezier(0.2, 0.6, 0.4, 1);
+}
+
+.navbar.show {
+    top: 0;
 }
 
 /* 移动端侧边栏 - 优化过渡与层级 */
@@ -160,6 +170,7 @@ body {
   min-width: 162px;
   height: 48px;
   margin-right: 15px;
+  padding: 0 10px;
   background-image: url('/imgs/navtitle.jpg');
   background-size: cover;
   background-position: center;
@@ -173,7 +184,7 @@ body {
 }
 
 .navbar_logo span {
-  font-size: 28px;
+  font-size: 26px;
   transition: opacity 0.3s ease;
 }
 
@@ -603,13 +614,17 @@ blockquote footer{
 .toc ul {
     height: 100%;
     margin: 0;
-    padding-left: 16px;
+    padding: 0;
     list-style: none;
     overflow-y: auto;
 }
 
 .toc ul li {
     margin-bottom: 8px;
+}
+
+.toc ul ul {
+    padding-left: 16px;
 }
 
 .toc ul li a {
@@ -755,6 +770,103 @@ blockquote footer{
     #theme-lightbox .lb-prev,
     #theme-lightbox .lb-next{ display: none; }
 }
+
+
+    .friends-link {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        /* 补全父容器宽度，避免换行异常 */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .friend-item {
+        display: flex;
+        height: auto;
+        border: 1px solid #ccc;
+        width: 100%;
+        text-decoration: none;
+        background: url(/imgs/blockquote.jpg) repeat;
+        background-size: 32px 32px;
+        box-shadow: var(--div-shadow);
+        transition: box-shadow 0.3s ease; /* 补全ease缓动，动画更丝滑 */
+        /* 补全盒模型，避免边框撑大宽度 */
+        box-sizing: border-box;
+        /* 增加内边距，避免内容贴边 */
+        padding: 8px;
+        /* 防止背景重复时的偏移问题 */
+        background-position: 0 0;
+    }
+
+    .friend-item:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .friend-item:hover img {
+        transform: scale(1.4) rotate(0deg);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .friend-item:hover .friend-info {
+        margin-left: 36px;
+    }
+
+    .friend-item img {
+        height: 100px;
+        width: 100px; /* 补全宽度，避免图片拉伸变形 */
+        object-fit: cover; /* 保持图片比例，防止变形 */
+        border: 1px solid #ccc;
+        transform: scale(1.2) rotate(-5deg);
+        background: url(/imgs/blockquote.jpg) repeat;
+        background-size: 32px 32px;
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+        box-shadow: var(--div-shadow);
+        /* 防止图片溢出 */
+        flex-shrink: 0;
+        background-position: 0 0;
+    }
+
+    .friend-info {
+        color: #000;
+        margin-left: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: margin-left 0.5s ease;
+        /* 补全行高，提升文字可读性 */
+        line-height: 1.5;
+    }
+
+    .friend-info span {
+        font-size: 2em;
+        font-weight: bold;
+        /* 限制文字换行，避免布局错乱 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .friend-info p {
+        margin: 0;
+        /* 调整字体大小，增强层级感 */
+        font-size: 1em;
+        color: #666; /* 轻微降色，突出标题 */
+    }
+
+    /* 响应式适配（原有样式未覆盖，补充移动端优化） */
+    @media (max-width: 768px) {
+        .friend-info span {
+            font-size: 1.5em;
+        }
+        .friend-item img {
+            height: 80px;
+            width: 80px;
+        }
+        .friends-link {
+            gap: 20px;
+        }
+    }
 
 
 /* Footer */

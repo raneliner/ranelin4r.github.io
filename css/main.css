@@ -1,45 +1,111 @@
-:root {
-    --bg-color: #fffade;
-    --fg-color: #d7d2b4;
-    --div-color: #f5f5dc;
-    --text-color: #000;
-    --div-shadow: 0 0px 10px #555;
+/* fonts */
+@font-face {
+    font-family: "MDL2";
+    src: url("/fonts/mdl2.woff2")format("woff2");
 }
 
+@font-face {
+    font-family: "slboot";
+    src: url("/fonts/slboot.woff2")format("woff2");
+}
+
+@font-face {
+    font-family: "msyhl";
+    src: url("/fonts/msyhl.woff2")format("woff2");
+}
+
+
+:root {
+  --bg-color: #fffade;
+  --fg-color: #d7d2b4;
+  --div-color: #f5f5dc;
+  --text-color: #000;
+  --div-shadow: 0 0px 10px #555;
+}
+
+
+/* scroll */
+::-webkit-scrollbar {
+    background-color: var(--fg-color);
+    width: 4px;
+    height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #0004;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #0006;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #0008;
+}
+
+
+/* selection */
 ::selection {
     color: #fff;
     background-color: #aca680;
 }
 
+
+/* lenis */
+html.lenis, html.lenis body {
+    height: auto;
+}
+   
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+
+/* -------------------- General Styles -------------------- */
 * {
-    word-wrap: break-word;
-    box-sizing: border-box;
-    font-family: 'slboot', 'MDL2', 'msyhl';
+  word-wrap: break-word;
+  box-sizing: border-box;
+  font-family: 'slboot', 'MDL2', 'msyhl';
 }
 
 body {
-    margin: 0;
-    background-color: var(--bg-color);
+  margin: 0;
+  background-color: var(--bg-color);
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .center {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
+
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.main {
+  padding-top: 50px;
+  flex: 1;
+}
+
+
+/* load screen */
 #load {
     position: fixed;
     background-color: var(--bg-color);
@@ -54,58 +120,42 @@ body {
     pointer-events: none;
 }
 
-#header {
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-}
 
-
-#main {
-    padding-top: 48px;
-    flex: 1;
-}
-
-
-/* Navbar */
-
+/* navbar */
 .navbar {
-    height: 48px;
-    background-color: var(--fg-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: var(--div-shadow);
-    position: relative;
-    z-index: 2;
-    top: -60px;
-    transition: top 0.6s cubic-bezier(0.2, 0.6, 0.4, 1);
+  position: relative;
+  top: -60px;
+  height: 50px;
+  background-color: var(--fg-color);
+  box-shadow: var(--div-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+  transition: top 0.6s cubic-bezier(0.2, 0.6, 0.4, 1);
 }
 
 .navbar.show {
-    top: 0;
+  top: 0;
 }
 
-/* 移动端侧边栏 - 优化过渡与层级 */
 .mobile-navbar {
-    position: fixed;
-    top: 0;
-    left: -260px;
-    width: 250px;
-    height: 100vh; /* 改为视口高度，兼容性更好 */
-    background-color: var(--fg-color);
-    box-shadow: var(--div-shadow);
-    transition: left 0.5s cubic-bezier(0.2, 0.6, 0.4, 1);
-    display: none;
-    overflow-y: auto; /* 新增：内容溢出时可滚动 */
-    z-index: 1; /* 提升层级，避免被遮挡 */
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100vh;
+  background-color: var(--fg-color);
+  box-shadow: var(--div-shadow);
+  transition: left 0.5s cubic-bezier(0.2, 0.6, 0.4, 1);
+  overflow-y: auto;
+  z-index: 1;
 }
 
-.mobile-navbar.visible {
+.mobile-navbar.show {
     left: 0;
 }
 
-/* 导航链接容器 - 统一基础样式 */
 .navbar_link,
 .mobile-navbar_link {
   display: flex;
@@ -122,65 +172,57 @@ body {
   width: 100%;
 }
 
-.navbar_link a,
-.mobile-navbar_link a {
+.navbar_link p,
+.mobile-navbar_link p {
+  margin: 0;
   color: #000;
-  text-decoration: none;
   transition: color 300ms ease, text-shadow 300ms ease, background-color 300ms ease;
 }
 
-.navbar_link a:hover,
-.mobile-navbar_link a:hover {
+.navbar_link p:hover,
+.mobile-navbar_link p:hover {
   color: #fff;
-  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5); /* 增加透明度，更柔和 */
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
   cursor: pointer;
 }
 
-.navbar_link a {
-  padding: 8px 15px; /* 新增：优化点击区域 */
+.navbar_link p {
+  padding: 8px 15px;
 }
 
-/* 移动端链接样式 - 优化点击区域 */
-.mobile-navbar_link a {
+.mobile-navbar_link p {
   padding: 16px 0;
   text-align: center;
   width: 100%;
-  box-sizing: border-box; /* 确保宽度包含内边距 */
+  box-sizing: border-box;
 }
 
-.mobile-navbar_link a:hover {
+.mobile-navbar_link p:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-/* 图标垂直对齐 - 优化兼容性 */
 .navbar_link span,
 .mobile-navbar_link span {
-  vertical-align: middle; /* 替换-2px，兼容性更好 */
-  line-height: 1; /* 确保行高一致 */
+  vertical-align: middle;
+  line-height: 1;
 }
 
-/* 菜单按钮隐藏控制 - 语义化命名 */
-.navbar_link a#menu,
-.mobile-navbar_link a#menu {
+.navbar_link p#menu {
   display: none;
 }
 
-/* Logo样式 - 保持原有动画效果 */
 .navbar_logo {
   min-width: 162px;
   height: 48px;
   margin-right: 15px;
   padding: 0 10px;
-  background-image: url('/imgs/navtitle.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transform: rotate(-5deg);
-  transition: transform 1s ease; /* 明确过渡属性 */
+  background: url('/imgs/navtitle.jpg') center/cover no-repeat;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer; /* 新增：提示可点击 */
+  transform: rotate(-5deg);
+  transition: transform 1s ease;
 }
 
 .navbar_logo span {
@@ -192,11 +234,11 @@ body {
   transform: rotate(5deg);
 }
 
-/* 导航按钮样式 - 优化交互体验 */
-.navbar button {
+.navbar_button {
   width: 42px;
   height: 42px;
   margin: 2px 2px 0 0;
+  padding: 0;
   background-color: transparent;
   border: none;
   border-radius: 50%;
@@ -204,62 +246,68 @@ body {
   align-items: center;
   justify-content: center;
   transition: background-color 300ms ease;
-  cursor: pointer; /* 明确指针样式 */
-  outline: none; /* 清除默认轮廓 */
-  padding: 0; /* 清除默认内边距 */
+  outline: none;
 }
 
-.navbar button span {
+.navbar_button span {
   margin-top: 2px;
   font-size: 18px;
   color: #000;
   transition: color 300ms ease, text-shadow 300ms ease;
 }
 
-.navbar button:hover span {
+.navbar_button:hover span {
   color: #fff;
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
-.navbar button:hover {
+.navbar_button:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.navbar button:active {
+.navbar_button:active {
   transition: background-color 100ms ease;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* 下拉菜单样式 - 优化定位与显示 */
+
 .dropdown {
-margin-left: 30px;
+  position: absolute;
+  top: 90%;
+  margin-left: 10px;
+  padding: 10px 0;
   width: 140px;
-  padding: 10px 0; /* 调整内边距，让链接更均匀 */
   background-color: var(--div-color);
   box-shadow: var(--div-shadow);
-  position: absolute;
-  top: 100%; /* 改为相对父元素底部，更稳定 */
   z-index: 1001;
-  opacity: 0; /* 新增：为hover显示做准备 */
-  visibility: hidden; /* 新增：避免hover前占用空间 */
+  opacity: 0;
+  visibility: hidden;
   transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
 }
 
-/* 下拉菜单三角箭头 - 优化位置 */
+.mobile-navbar .dropdown {
+  margin-left: 0;
+  width: 100%;
+}
+
 .dropdown::after {
   content: "";
   position: absolute;
   top: -8px;
-  left: 2px;
+  left: 4px;
   border-width: 0 10px 10px 10px;
   border-style: solid;
   border-color: transparent transparent var(--div-color) transparent;
-  z-index: -1; /* 调整层级，避免遮挡菜单 */
+  z-index: -1;
+}
+
+.mobile-navbar .dropdown::after {
+  left: 50%;
 }
 
 .dropdown_trigger {
-  position: relative; /* 关键：让下拉菜单相对于自己定位 */
-  display: inline-flex; /* 保持与其他菜单按钮横向对齐 */
+  position: relative;
+  display: inline-flex;
   align-items: center;
 }
 
@@ -267,623 +315,60 @@ margin-left: 30px;
   width: 100%;
 }
 
-/* 下拉菜单链接容器 - 优化布局 */
 .dropdown_link {
   display: flex;
   flex-direction: column;
-  gap: 4px; /* 新增：链接间距，更舒适 */
 }
 
-/* 下拉菜单链接 - 优化点击区域 */
-.dropdown_link a {
-    margin-left: 0 !important;
-  padding: 8px 16px; /* 左右加内边距，更易点击 */
-  width: 100%;
-  color: #000;
-  text-decoration: none;
-  transition: color 300ms ease, background-color 300ms ease;
-  margin: 0; /* 清除桌面端的margin-left */
-  text-align: left; /* 左对齐，更符合下拉菜单习惯 */
+.dropdown_link p {
+  padding: 14px 14px;
 }
 
-/* 下拉菜单链接hover - 新增背景效果 */
-.dropdown_link a:hover {
+.mobile-navbar .dropdown_link p {
+  padding: 16px 0;
+}
+
+.dropdown_link p:hover {
   background-color: rgba(0, 0, 0, 0.1);
   color: #fff;
 }
 
-/* 其他链接箭头 - 补充字体图标依赖说明 */
-a#other::after {
+p#other::after {
   content: "\e011";
+  position: relative;
+  display: inline-flex;
   font-size: 10px;
-  margin-left: 4px; /* 新增：与文字间距 */
-  vertical-align: middle;
+  margin-left: 4px;
+  transition: transform 0.3s ease;
 }
 
-/* 父元素hover显示下拉菜单 - 补充交互逻辑 */
+p#other:hover::after {
+  transform: rotate(180deg) translateY(2px);
+}
+
 .dropdown_trigger:hover .dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(4px); /* 微调位置，增加动态感 */
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(4px);
 }
-
-/* 响应式适配 - 确保移动端菜单按钮显示（根据原有逻辑补充） */
-@media (max-width: 768px) {
-  #navbar .link a:not(#menu) {
-    display: none; /* 移动端隐藏普通链接 */
-  }
-  
-  #navbar .link a#menu {
-    display: block; /* 移动端显示菜单按钮 */
-  }
-  
-  #mobile-navbar {
-    display: block; /* 移动端显示侧边栏容器 */
-  }
-}
-
-
-/* Search Bar */
-.search-bar {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-}
-
-.search-bar input{
-    color: #333;
-    font-size: 16px;
-    background-color: var(--div-color);
-    border: 1px solid var(--fg-color);
-    outline: none;
-    width: 70%;
-    padding: 12px;
-}
-
-.search-bar input::placeholder{
-    font-size: 16px;
-    text-align: center;
-    transition: transform 500ms;
-}
-
-.search-bar input:focus::placeholder{
-    transform: translateX(calc(-50% + 70px));
-}
-
-
-/* Post Cards */
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-}
-
-.card {
-    background-color: var(--div-color);
-    border: 1px solid var(--fg-color);
-    min-width: calc(50% - 40px);
-    height: 280px;
-    display: flex;
-    flex-direction: column;
-    transition: opacity 360ms cubic-bezier(.2,.9,.3,1), transform 600ms cubic-bezier(.2,.9,.3,1), max-height 360ms ease, margin 300ms ease, padding 300ms ease, box-shadow 200ms;
-    will-change: transform, opacity, max-height;
-    transform-origin: top center;
-    backface-visibility: hidden;
-    max-height: 560px;
-    overflow: visible;
-}
-
-/* 过滤掉时的样式：较柔和的位移与缩放 */
-.card.filtered-out {
-    opacity: 0;
-    transform: translateY(12px) scale(0.992);
-    max-height: 0;
-    margin: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.card a {
-    color: #000;
-    text-decoration: none;
-}
-
-/* 卡片主体和信息区共享布局样式 */
-.card .card-main,
-.card .card-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-}
-
-.card .card-main {
-    height: 60%;
-    background-size: cover;
-    background-position: center;
-    background-color: rgba(0, 0, 0, 0.2);
-    background-blend-mode: overlay;
-    transition: all 500ms;
-} 
-
-.card .card-main p {
-    color: #fff;
-    text-shadow: 0 0 30px #000;
-    font-size: 24px;
-} 
-
-.card .card-info {
-    height: 40%;
-}
-
-.card .card-info p {
-    margin: 1px;
-}
-
-.card .card-info span {
-    vertical-align: 3px;
-}
-
-.card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transform: scale(1.02);
-}
-
-.card:hover .card-main {
-    height: 100%;
-}
-
-
-/* Tag Buttons */
-.tag-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 10px;
-}
-
-.tag-button {
-    padding: 8px 12px;
-    background-color: var(--div-color);
-    border: 1px solid #d7d2b4;
-    text-decoration: none;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.tag-button:hover {
-    background-color: var(--fg-color);
-}
-
-.tag-button.active {
-    background-color: var(--fg-color);
-}
-
-
-/* Post */
-.post {
-    color: #333;
-    align-items: center;
-}
-
-.post-meta {
-    height: 200px;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    user-select: none;
-}
-
-.post-bg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: blur(5px) brightness(0.8);
-    pointer-events: none;
-}
-
-.post-info {
-    color: #fff;
-    position: absolute;
-}
-
-.post-meta h1 {
-    margin: 0px;
-    font-size: 32px;
-}
-
-.post-detail {
-    align-items: center;
-    place-content: center;
-    user-select: none;
-}
-
-.post-detail span {
-    vertical-align: -3px;
-}
-
-.post-detail a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-.post-content {
-    position: relative;
-    margin: 0px auto 80px auto;
-    width: 900px;
-    padding: 20px;
-    font-family: 'deng';
-}
-
-.post-content p {
-    line-height: 1.5em;
-}
-
-.post-content a {
-    color: #888;
-}
-
-.post-content p img {
-    display: block;
-    max-width: 100%;
-    margin: 20px auto;
-    box-shadow: var(--div-shadow);
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
-}
-
-.post-content p img:hover {
-    transform: scale(0.92);
-}
-
-
-.highlight {
-    background-color: var(--fg-color);
-    padding: 15px;
-    font-family: Consolas, 'Courier New', monospace;
-    overflow-x: auto;
-}
-
-
-/* Blockquote */
-blockquote {
-    background: url('/imgs/blockquote.jpg') repeat;
-    background-size: 32px 32px;
-    border-left: 3px solid var(--fg-color);
-    margin: 12px 0;
-    overflow: auto;
-    padding: 0 15px;
-}
-
-blockquote footer{
-    margin: 12px 0;
-    text-align: right;
-}
-
-/* Comment */
-.comment {
-    margin-top: 100px;
-    border-top: #333 1px solid;
-}
-
-
-/* toc */
-.toc {
-    position: fixed;
-    bottom: 140px;
-    right: 0;
-    width: 300px;
-    height: 60%;
-    padding: 10px;
-    background-color: var(--div-color);
-    box-shadow: var(--div-shadow);
-    z-index: 10;
-    transform: translateX(calc(100% + 10px));
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.toc::before {
-    content: "\e15c";
-    position: absolute;
-    bottom: 0;
-    left: -50px;
-    width: 40px;
-    height: 40px;
-    background-color: inherit;
-    color: #000;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--div-shadow)
-}
-
-.toc:hover {
-    transform: translateX(0);
-}
-
-.toc ul {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    overflow-y: auto;
-}
-
-.toc ul li {
-    margin-bottom: 8px;
-}
-
-.toc ul ul {
-    padding-left: 16px;
-}
-
-.toc ul li a {
-    display: block;
-    color: #333;
-    text-decoration: none;
-    padding: 4px 0;
-}
-
-.toc ul li a:hover {
-    color: var(--fg-color);
-}
-
-
-/* Back to Top */
-#back2top {
-    position: fixed;
-    right: 0;
-    height: 40px;
-    bottom: 80px;
-    padding: 0 12px;
-    color: #333;
-    background-color: var(--div-color);
-    text-decoration: none;
-    display: flex;
-    place-items: center;
-    justify-content: center;
-    box-shadow: #000 0 0 10px;
-    transform: translateX(calc(100% + 10px));
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#back2top::before {
-    content: "\e752";
-    position: absolute;
-    bottom: 0;
-    left: -50px;
-    width: 40px;
-    height: 40px;
-    background-color: inherit;
-    color: #000;
-    font-size: 14px;
-    vertical-align: -2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--div-shadow);
-}
-
-#back2top:hover {
-    transform: translateX(0);
-}
-
-#back2top.hidden {
-    transform: translateX(calc(100% + 60px));
-}
-
-
-/* Lightbox */
-#theme-lightbox .lb-overlay{
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(5,0,0,0.5);
-    opacity: 0;
-    transform: scale(1.1);
-    visibility: hidden;
-    transition: opacity .32s cubic-bezier(.2,.9,.3,1), visibility .32s, transform .32s cubic-bezier(.2,.9,.3,1), filter .32s cubic-bezier(.2,.9,.3,1);
-    z-index: 2000;
-}
-
-#theme-lightbox .lb-overlay.open{
-    opacity: 1;
-    transform: scale(1);
-    backdrop-filter: blur(6px);
-    visibility: visible;
-}
-
-#theme-lightbox .lb-inner{
-    max-width: 92%;
-    max-height: 84%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-#theme-lightbox .lb-img{
-    width: 70%;
-    max-height: 80%;
-    box-shadow: var(--div-shadow);
-    transition: transform .36s cubic-bezier(.2,.9,.3,1);
-}
-
-.lightbox-open {
-    overflow: hidden;
-}
-
-#theme-lightbox .lb-caption{
-    color: #fff;
-    font-size: 0.9rem;
-    margin-top: 8px;
-    text-align: center;
-    max-width: 90%;
-    word-break: break-word;
-}
-
-#theme-lightbox .lb-close,
-#theme-lightbox .lb-prev,
-#theme-lightbox .lb-next{
-    position: absolute;
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 28px;
-    padding: 8px;
-    cursor: pointer;
-    z-index: 2100;
-}
-
-#theme-lightbox .lb-close{
-    top: 18px;
-    right: 18px;
-    font-size: 32px;
-}
-
-#theme-lightbox .lb-prev{
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-
-}
-
-#theme-lightbox .lb-next{
-    right: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-@media (max-width: 800px) {
-    #theme-lightbox .lb-prev,
-    #theme-lightbox .lb-next{ display: none; }
-}
-
-
-    .friends-link {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 40px;
-        /* 补全父容器宽度，避免换行异常 */
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .friend-item {
-        display: flex;
-        height: auto;
-        border: 1px solid #ccc;
-        width: 100%;
-        text-decoration: none;
-        background: url(/imgs/blockquote.jpg) repeat;
-        background-size: 32px 32px;
-        box-shadow: var(--div-shadow);
-        transition: box-shadow 0.3s ease; /* 补全ease缓动，动画更丝滑 */
-        /* 补全盒模型，避免边框撑大宽度 */
-        box-sizing: border-box;
-        /* 增加内边距，避免内容贴边 */
-        padding: 8px;
-        /* 防止背景重复时的偏移问题 */
-        background-position: 0 0;
-    }
-
-    .friend-item:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .friend-item:hover img {
-        transform: scale(1.4) rotate(0deg);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .friend-item:hover .friend-info {
-        margin-left: 36px;
-    }
-
-    .friend-item img {
-        height: 100px;
-        width: 100px; /* 补全宽度，避免图片拉伸变形 */
-        object-fit: cover; /* 保持图片比例，防止变形 */
-        border: 1px solid #ccc;
-        transform: scale(1.2) rotate(-5deg);
-        background: url(/imgs/blockquote.jpg) repeat;
-        background-size: 32px 32px;
-        transition: transform 0.5s ease, box-shadow 0.5s ease;
-        box-shadow: var(--div-shadow);
-        /* 防止图片溢出 */
-        flex-shrink: 0;
-        background-position: 0 0;
-    }
-
-    .friend-info {
-        color: #000;
-        margin-left: 30px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        transition: margin-left 0.5s ease;
-        /* 补全行高，提升文字可读性 */
-        line-height: 1.5;
-    }
-
-    .friend-info span {
-        font-size: 2em;
-        font-weight: bold;
-        /* 限制文字换行，避免布局错乱 */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .friend-info p {
-        margin: 0;
-        /* 调整字体大小，增强层级感 */
-        font-size: 1em;
-        color: #666; /* 轻微降色，突出标题 */
-    }
-
-    /* 响应式适配（原有样式未覆盖，补充移动端优化） */
-    @media (max-width: 768px) {
-        .friend-info span {
-            font-size: 1.5em;
-        }
-        .friend-item img {
-            height: 80px;
-            width: 80px;
-        }
-        .friends-link {
-            gap: 20px;
-        }
-    }
 
 
 /* Footer */
 .footer {
     position: relative;
+    height: 50px;
     bottom: 0;
     width: 100%;
-    padding: 4px 0px;
     box-shadow: var(--div-shadow);
     background-color: var(--fg-color);
     z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.footer span {
-    padding: 1px 0px;
-    display: flex;
-    justify-content: center;
+.footer span {    
     vertical-align: -3px;
 }
 
@@ -893,24 +378,8 @@ blockquote footer{
     margin: 0 5px;
 }
 
-
-/* Mobile Styles */
-@media (max-width: 1000px) {
-    .search-bar input{
-        width: 100%;
-    }
-    
-    .card {
-        width: 100%;
-    }
-
-    .post-content {
-        width: 90%;
-    }
-}
-
 @media (max-width: 800px) {
-    .navbar_link a {
+    .navbar_link p {
         display: none;
     }
 
@@ -918,66 +387,7 @@ blockquote footer{
         display: block;
     }
 
-    .navbar_link a#menu {
+    .navbar_link p#menu {
         display: block;
     }
-
-    .navbar_logo {
-        width: 140px;
-    }
-
-    .post-meta h1 {
-        font-size: 24px;
-    }
-
-    .background img {
-        height: 150px;
-    }
-
-    .post-info a {
-        font-size: 14px;
-    }
-
-    #theme-lightbox .lb-img{
-    width: 80%;
-    max-height: 80%;
-}
-}
-
-/* 纯 CSS 全页 ripple（从按钮中心扩散覆盖视口） */
-/* 使用时在需要的 button 上加类 ripple-button */
-.ripple-button {
-    position: relative;   /* 使伪元素以按钮为定位参照 */
-    overflow: visible;    /* 允许伪元素超出按钮显示 */
-    -webkit-tap-highlight-color: transparent;
-}
-
-.ripple-button::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 300vmax;               /* 足够覆盖任意视口 */
-    height: 300vmax;
-    background: rgba(0,0,0,0.6); /* 可改为其它颜色/透明度 */
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 1;
-    pointer-events: none;
-    z-index: 9999;
-    will-change: transform, opacity;
-    transition: transform 700ms cubic-bezier(.2,.9,.3,1), opacity 400ms ease;
-}
-
-/* 点击时触发扩散并淡出（纯 CSS） */
-.ripple-button:active::after {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-}
-
-/* 可选：键盘（回车/空格）触发时的视觉兼容 */
-.ripple-button:focus::after {
-    transform: translate(-50%, -50%) scale(0.02);
-    opacity: 0.6;
-    transition: transform 220ms ease, opacity 220ms ease;
 }

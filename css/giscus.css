@@ -95,6 +95,7 @@ main {
 }
 
 .gsc-comments > .gsc-comment-box {
+  width: auto;
   margin-bottom: 1rem;
   order: 2;
 }
@@ -110,10 +111,14 @@ main {
 }
 
 .gsc-comment,
-.gsc-comment-box,
-.gsc-right-header {
+.gsc-comment-box {
   margin: 10px;
   border-radius: 14px;
+  box-shadow: var(--div-shadow);
+}
+
+.gsc-right-header {
+  margin: 10px;
   box-shadow: var(--div-shadow);
 }
 

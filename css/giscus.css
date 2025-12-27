@@ -1,12 +1,3 @@
-/*!
- * Cream Paper Giscus Theme
- * Modified from GitHub Dark Dimmed theme (MIT)
- * Re-colored for light cream / paper style
- */
-
-/* ======================================================
-   Core Variables
-   ====================================================== */
 main {
   /* ---- Syntax Highlight ---- */
   --color-prettylights-syntax-comment: #9c9a85;
@@ -81,9 +72,7 @@ main {
   --color-primer-shadow-inset: 0 0 #0000;
 }
 
-/* ======================================================
-   Layout & Structure
-   ====================================================== */
+
 
 .gsc-reactions-count {
   display: none;
@@ -110,9 +99,7 @@ main {
   order: 3;
 }
 
-/* ======================================================
-   Cards & Paper Feel
-   ====================================================== */
+
 
 .gsc-comment {
   background: #f5f5dc;
@@ -121,9 +108,7 @@ main {
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* ======================================================
-   Homepage / Loading
-   ====================================================== */
+
 
 .gsc-homepage-bg {
   background-color: #fffade;
@@ -133,9 +118,7 @@ main .gsc-loading-image {
   background-image: none;
 }
 
-/* ======================================================
-   Typography Tweaks
-   ====================================================== */
+
 
 .gsc-comment-content {
   line-height: 1.8;

@@ -468,6 +468,116 @@ p#other:hover::after {
 }
 
 
+/* Post */
+.post {
+  color: #333;
+  align-items: center;
+}
+
+.post-meta {
+  height: 200px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  user-select: none;
+}
+
+.post-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(5px) brightness(0.8);
+  pointer-events: none;
+}
+
+.post-info {
+  color: #fff;
+  position: absolute;
+}
+
+.post-meta h1 {
+  margin: 0px;
+  font-size: 32px;
+}
+
+.post-detail {
+  align-items: center;
+  place-content: center;
+  user-select: none;
+}
+
+.post-detail span {
+  vertical-align: -3px;
+}
+
+.post-detail a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.post-content {
+  position: relative;
+  margin: 0px auto 80px auto;
+  width: 900px;
+  padding: 20px;
+  font-family: 'deng';
+}
+
+.post-content p {
+  line-height: 1.5em;
+}
+
+.post-content a {
+  color: #888;
+}
+
+.post-content p img {
+  display: block;
+  max-width: 100%;
+  margin: 20px auto;
+  box-shadow: var(--div-shadow);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.post-content p img:hover {
+  transform: scale(0.92);
+}
+
+
+.highlight {
+  background-color: var(--fg-color);
+  padding: 15px;
+  font-family: Consolas, 'Courier New', monospace;
+  overflow-x: auto;
+}
+
+
+/* Blockquote */
+blockquote {
+  background: url('/imgs/blockquote.jpg') repeat;
+  background-size: 32px 32px;
+  border-left: 3px solid var(--fg-color);
+  margin: 12px 0;
+  overflow: auto;
+  padding: 0 15px;
+}
+
+blockquote footer{
+  margin: 12px 0;
+  text-align: right;
+}
+
+/* Comment */
+.comment {
+  margin-top: 100px;
+  border-top: #333 1px solid;
+}
+
+
 /* Footer */
 .footer {
   position: relative;

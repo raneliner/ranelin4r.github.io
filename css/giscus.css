@@ -1,3 +1,7 @@
+:root {
+  --div-shadow: 0 0px 10px #555;
+}
+
 main {
   /* ---- Syntax Highlight ---- */
   --color-prettylights-syntax-comment: #9c9a85;
@@ -93,6 +97,8 @@ main {
 .gsc-comments > .gsc-comment-box {
   margin-bottom: 1rem;
   order: 2;
+  box-shadow: var(--div-shadow);
+  transform: scale(0.98);
 }
 
 .gsc-comments > .gsc-timeline {
@@ -105,9 +111,13 @@ main {
   background: #f5f5dc;
   border-radius: 14px;
   border: 1px solid #e0dcc2;
-  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--div-shadow);
 }
 
+.gsc-reactions-menu {
+  box-shadow: var(--div-shadow);
+  border-radius: 50%;
+}
 
 
 .gsc-homepage-bg {

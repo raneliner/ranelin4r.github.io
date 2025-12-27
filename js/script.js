@@ -5,7 +5,6 @@ const loadAnimate = {
 
   enter() {
     this.nav.classList.add('show');
-    //this.mobileNav.classList.add('show');
     setTimeout(() => {
       this.load.classList.add('hidden');
     }, 500);
@@ -40,6 +39,41 @@ const menuToggle = {
   }
 }
 
+const scrollCheck = {
+  nav: document.querySelector('.navbar'),
+  back: document.getElementById('back2top'),
+  lastScrollY: 0,
+  currentScrollY: window.scrollY,
+  
+  init() {
+    window.addEventListener('scroll', () => {
+      this.currentScrollY = window.scrollY;
+      this.backToTop();
+      this.navScroll();
+    }, { passive: true });
+  },
+
+  backToTop() {
+    if (!this.back) return;
+
+    if (this.currentScrollY > 100) {
+      this.back.classList.add('show');
+    } else {
+      this.back.classList.remove('show');
+    }
+  },
+
+  navScroll() {
+    if (this.currentScrollY > this.lastScrollY) {
+      if (this.currentScrollY < 100) return;
+      this.nav.classList.remove('show');
+    } else {
+      this.nav.classList.add('show');
+    }
+    this.lastScrollY = this.currentScrollY;
+  }
+}
+
 function initGlobal() {
   lenis = new Lenis();
   function raf(time) {
@@ -47,12 +81,38 @@ function initGlobal() {
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
+
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    offset: 72,
+    speed: 1000,
+    speedAsDuration: true,
+    easing: 'easeInOutQuart'
+  });
 }
 
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   loadAnimate.enter();
   menuToggle.init();
+  scrollCheck.init();
   initGlobal();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const type = document.body.className.toLowerCase();
+
+  switch (type) {
+    case 'projects':
+      initProjects();
+      break;
+    case 'page':
+      console.log('page');
+      break;
+    case 'index':
+      console.log('index');
+      break;
+    default:
+      console.log('No specific init for this page type.');
+  }
 });
 
 window.addEventListener('beforeunload', () => {

@@ -1,178 +1,148 @@
+/*!
+ * Cream Paper Giscus Theme
+ * Modified from GitHub Dark Dimmed theme (MIT)
+ * Re-colored for light cream / paper style
+ */
+
 /* ======================================================
-   GISCUS THEME · Cream Paper Style
-   Based on:
-   --bg-color: #fffade
-   --fg-color: #d7d2b4
-   --div-color: #f5f5dc
+   Core Variables
+   ====================================================== */
+main {
+  /* ---- Syntax Highlight ---- */
+  --color-prettylights-syntax-comment: #9c9a85;
+  --color-prettylights-syntax-constant: #8a8560;
+  --color-prettylights-syntax-entity: #7f7a55;
+  --color-prettylights-syntax-storage-modifier-import: #6e6a4b;
+  --color-prettylights-syntax-entity-tag: #6b7a4b;
+  --color-prettylights-syntax-keyword: #8b6f3c;
+  --color-prettylights-syntax-string: #6f7f5a;
+  --color-prettylights-syntax-variable: #8a7446;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #b34b3c;
+  --color-prettylights-syntax-invalid-illegal-text: #000;
+  --color-prettylights-syntax-invalid-illegal-bg: #f1c1b8;
+
+  /* ---- Foreground ---- */
+  --color-fg-default: #000;
+  --color-fg-muted: #9c9a85;
+  --color-fg-subtle: #b5b29a;
+
+  /* ---- Canvas / Background ---- */
+  --color-canvas-default: #fffade;
+  --color-canvas-overlay: #f5f5dc;
+  --color-canvas-inset: #f5f5dc;
+  --color-canvas-subtle: #efeccf;
+
+  /* ---- Borders ---- */
+  --color-border-default: #e0dcc2;
+  --color-border-muted: #eae6cc;
+
+  /* ---- Neutral ---- */
+  --color-neutral-muted: #d7d2b480;
+
+  /* ---- Accent ---- */
+  --color-accent-fg: #7b7652;
+  --color-accent-emphasis: #6f6a47;
+  --color-accent-muted: #c7c1a080;
+  --color-accent-subtle: #ebe8c8;
+
+  /* ---- Success / Warning / Danger ---- */
+  --color-success-fg: #6b7a4b;
+  --color-attention-fg: #9b8448;
+  --color-danger-fg: #b34b3c;
+
+  --color-success-muted: #6b7a4b66;
+  --color-attention-muted: #9b844866;
+  --color-danger-muted: #b34b3c66;
+
+  --color-success-subtle: #6b7a4b26;
+  --color-attention-subtle: #9b844826;
+  --color-danger-subtle: #b34b3c26;
+
+  /* ---- Buttons ---- */
+  --color-btn-text: #000;
+  --color-btn-bg: #e8e4c3;
+  --color-btn-border: #e0dcc2;
+  --color-btn-hover-bg: #dad5b1;
+  --color-btn-hover-border: #c7c1a0;
+  --color-btn-active-bg: #d7d2b4;
+  --color-btn-active-border: #bdb88f;
+  --color-btn-selected-bg: #d7d2b4;
+
+  --color-btn-primary-text: #000;
+  --color-btn-primary-bg: #d7d2b4;
+  --color-btn-primary-hover-bg: #cfcaa8;
+  --color-btn-primary-selected-bg: #d7d2b4;
+
+  /* ---- Reactions ---- */
+  --color-social-reaction-bg-hover: #ebe8c8;
+  --color-social-reaction-bg-reacted-hover: #d7d2b4;
+
+  /* ---- Shadow ---- */
+  --color-primer-shadow-inset: 0 0 #0000;
+}
+
+/* ======================================================
+   Layout & Structure
    ====================================================== */
 
-/* ---------- Root Colors ---------- */
-:root {
-  --bg-color: #fffade;
-  --fg-color: #d7d2b4;
-  --div-color: #f5f5dc;
-  --text-color: #000;
-  --div-shadow: 0 0px 10px #555;
-
-  /* Extended palette (near colors) */
-  --giscus-border: #e0dcc2;
-  --giscus-muted: #9c9a85;
-  --giscus-accent: #c7c1a0;
-  --giscus-hover: #ebe8c8;
-  --giscus-btn-bg: #e8e4c3;
-  --giscus-btn-hover: #dad5b1;
+.gsc-reactions-count {
+  display: none;
 }
 
-/* ---------- Base Container ---------- */
-.giscus,
-.giscus-frame {
-  background: var(--bg-color);
-  color: var(--text-color);
-  font-family: inherit;
+.gsc-timeline {
+  flex-direction: column-reverse;
 }
 
-/* ---------- Discussion Wrapper ---------- */
-.giscus .discussion-timeline,
-.giscus .discussion-timeline-comment {
-  background: transparent;
+.gsc-header {
+  padding-bottom: 1rem;
 }
 
-/* ---------- Comment Card ---------- */
-.giscus .comment,
-.giscus .discussion-timeline-comment {
-  background: var(--div-color);
+.gsc-comments > .gsc-header {
+  order: 1;
+}
+
+.gsc-comments > .gsc-comment-box {
+  margin-bottom: 1rem;
+  order: 2;
+}
+
+.gsc-comments > .gsc-timeline {
+  order: 3;
+}
+
+/* ======================================================
+   Cards & Paper Feel
+   ====================================================== */
+
+.gsc-comment {
+  background: #f5f5dc;
   border-radius: 14px;
-  border: 1px solid var(--giscus-border);
-  box-shadow: var(--div-shadow);
-  padding: 1em 1.2em;
-  margin-bottom: 1.2em;
+  border: 1px solid #e0dcc2;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* ---------- Header (Author / Time) ---------- */
-.giscus .comment-header {
-  color: var(--giscus-muted);
-  font-size: 0.85em;
+/* ======================================================
+   Homepage / Loading
+   ====================================================== */
+
+.gsc-homepage-bg {
+  background-color: #fffade;
 }
 
-.giscus .author {
-  color: var(--text-color);
-  font-weight: 600;
+main .gsc-loading-image {
+  background-image: none;
 }
 
-.giscus .author-association {
-  color: var(--giscus-muted);
-}
+/* ======================================================
+   Typography Tweaks
+   ====================================================== */
 
-/* ---------- Comment Body ---------- */
-.giscus .comment-body {
-  color: var(--text-color);
+.gsc-comment-content {
   line-height: 1.8;
-  font-size: 0.95em;
 }
 
-.giscus .comment-body p {
-  margin: 0.6em 0;
-}
-
-.giscus .comment-body code {
-  background: var(--fg-color);
-  padding: 0.2em 0.4em;
+.gsc-comment-content code {
+  background: #d7d2b4;
   border-radius: 6px;
-  font-size: 0.9em;
-}
-
-/* ---------- Links ---------- */
-.giscus a {
-  color: var(--text-color);
-  text-decoration: underline;
-}
-
-.giscus a:hover {
-  background: var(--giscus-hover);
-}
-
-/* ---------- Buttons ---------- */
-.giscus button,
-.giscus .btn-primary,
-.giscus .btn {
-  background: var(--giscus-btn-bg);
-  color: var(--text-color);
-  border-radius: 999px;
-  border: 1px solid var(--giscus-border);
-  padding: 6px 14px;
-  font-size: 0.85em;
-  transition: all 0.2s ease;
-}
-
-.giscus button:hover,
-.giscus .btn-primary:hover {
-  background: var(--giscus-btn-hover);
-}
-
-/* ---------- Reaction Buttons ---------- */
-.giscus .reaction-button {
-  background: var(--fg-color);
-  color: var(--text-color);
-  border-radius: 999px;
-  border: none;
-}
-
-.giscus .reaction-button:hover {
-  background: var(--giscus-hover);
-}
-
-/* ---------- Input / Editor ---------- */
-.giscus textarea,
-.giscus .markdown-editor,
-.giscus .comment-form-textarea {
-  background: var(--bg-color);
-  color: var(--text-color);
-  border-radius: 10px;
-  border: 1px solid var(--giscus-border);
-  padding: 0.6em;
-}
-
-.giscus textarea::placeholder {
-  color: var(--giscus-muted);
-}
-
-/* ---------- Markdown Toolbar ---------- */
-.giscus .toolbar-item {
-  color: var(--giscus-muted);
-}
-
-.giscus .toolbar-item:hover {
-  color: var(--text-color);
-}
-
-/* ---------- Hr / Divider ---------- */
-.giscus hr {
-  border: none;
-  height: 1px;
-  background: var(--giscus-border);
-  margin: 1.5em 0;
-}
-
-/* ---------- Empty / Loading ---------- */
-.giscus .loading,
-.giscus .blankslate {
-  color: var(--giscus-muted);
-}
-
-/* ---------- Dark Mode (Soft, Paper-like) ---------- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #1f1e16;
-    --div-color: #2a291f;
-    --fg-color: #3a382a;
-    --text-color: #f5f3dc;
-    --giscus-border: #3a382a;
-    --giscus-muted: #b0ae98;
-    --giscus-btn-bg: #333122;
-    --giscus-btn-hover: #3e3c2a;
-  }
-
-  .giscus .comment-body code {
-    background: #3a382a;
-  }
+  padding: 0.15em 0.4em;
 }

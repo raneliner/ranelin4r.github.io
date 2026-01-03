@@ -20,7 +20,18 @@
   --fg-color: #d7d2b4;
   --div-color: #f5f5dc;
   --text-color: #000;
+  --swap-color: #fff;
   --div-shadow: 0 0px 10px #555;
+}
+
+
+.pro {
+    --bg-color: #2c2a21;       /* 深暖棕（替代原浅米黄） */
+    --fg-color: #5c5847;       /* 中深棕（替代原浅米色） */
+    --div-color: #3a372b;      /* 暖棕灰（替代原奶油色） */
+    --text-color: #f0ebe0;     /* 柔白色（替代原黑色，避免刺眼） */
+    --swap-color: #444030;     /* 深暖调（替代原纯白） */
+    --div-shadow: 0 0px 10px #1a1812; /* 深色阴影（更柔和） */
 }
 
 
@@ -32,16 +43,16 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #0004;
+  background-color: color-mix(in srgb, var(--text-color), transparent 80%);
   background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #0006;
+  background-color: color-mix(in srgb, var(--text-color), transparent 60%);
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background-color: #0008;
+  background-color: color-mix(in srgb, var(--text-color), transparent 40%);
 }
 
 
@@ -73,6 +84,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-color);
+  transition: background-color 0.8s cubic-bezier(0.2, 0.6, 0.4, 1);
 }
 
 .container {
@@ -109,8 +121,8 @@ body {
 /* load screen */
 #load {
   position: fixed;
-  background-color: var(--bg-color);
-  transition: opacity 0.5s ease;
+  background-color: var(--fg-color);
+  transition: opacity 0.5s ease, background-color 0.5s ease;
   opacity: 1;
   pointer-events: none;
   z-index: 999;
@@ -176,14 +188,14 @@ body {
 .navbar_link p,
 .mobile-navbar_link p {
   margin: 0;
-  color: #000;
+  color: var(--text-color);
   transition: color 300ms ease, text-shadow 300ms ease, background-color 300ms ease;
 }
 
 .navbar_link p:hover,
 .mobile-navbar_link p:hover {
-  color: #fff;
-  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+  color: var(--swap-color);
+  text-shadow: 4px 4px 4px var(--text-color);
   cursor: pointer;
 }
 
@@ -199,7 +211,7 @@ body {
 }
 
 .mobile-navbar_link p:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: color-mix(in srgb, var(--text-color), transparent 80%);
 }
 
 .navbar_link span,
@@ -253,7 +265,7 @@ body {
 .navbar_button span {
   margin-top: 2px;
   font-size: 18px;
-  color: #000;
+  color: var(--text-color);
   transition: color 300ms ease, text-shadow 300ms ease;
 }
 
@@ -330,8 +342,8 @@ body {
 }
 
 .dropdown_link p:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-  color: #fff;
+  background-color: color-mix(in srgb, var(--text-color), transparent 80%);
+  color: var(--swap-color);
 }
 
 p#other::after {
@@ -384,7 +396,8 @@ p#other:hover::after {
 
 /* Post Cards */
 .card-container {
-  padding: 20px 10%;
+  margin: 0px auto 80px auto;
+  max-width: 1400px;
   gap: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -425,7 +438,7 @@ p#other:hover::after {
   background-position: center;
   background-color: rgba(0, 0, 0, 0.5);
   background-blend-mode: overlay;
-  transition: all 500ms;
+  transition: all 500ms ease;
 } 
 
 .card_title {
@@ -548,6 +561,83 @@ p#other:hover::after {
 }
 
 
+/* toc */
+.toc {
+  position: fixed;
+  bottom: 140px;
+  right: 0;
+  width: 300px;
+  height: 60%;
+  padding: 10px;
+  background-color: var(--div-color);
+  z-index: 10;
+  transform: translateX(100%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toc::before {
+  content: "\e15c";
+  position: absolute;
+  bottom: 0;
+  left: -40px;
+  width: 40px;
+  height: 40px;
+  background-color: inherit;
+  color: #000;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--div-shadow);
+}
+
+.toc:hover {
+  box-shadow: var(--div-shadow);
+  transform: translateX(0);
+}
+
+.toc ul {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.toc ul li {
+  margin-bottom: 8px;
+}
+
+.toc ul ul {
+  padding-left: 16px;
+}
+
+.toc ul li a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  padding: 4px 0;
+}
+
+.toc ul li a:hover {
+  color: var(--fg-color);
+}
+
+.toc a.active {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.toc li.active > a {
+  color: var(--accent-color);
+}
+
+.toc li.active > ul {
+  opacity: 1;
+}
+
+
+
 .highlight {
   background-color: var(--fg-color);
   padding: 15px;
@@ -586,6 +676,7 @@ blockquote footer{
   width: 100%;
   box-shadow: var(--div-shadow);
   background-color: var(--fg-color);
+  color: var(--text-color);
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -612,7 +703,7 @@ blockquote footer{
   padding: 0 14px;
   text-decoration: none;
   transform: translateX(calc(100% + 60px));
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #back2top::before {
@@ -641,6 +732,27 @@ blockquote footer{
 #back2top.show:hover {
   transform: translateX(0);
 }
+
+
+/* Mobile Styles */
+@media (max-width: 1000px) {
+    .search-bar input{
+        width: 100%;
+    }
+
+    .card-container {
+      margin: 20px;
+    }
+    
+    .card {
+        width: 100%;
+    }
+
+    .post-content {
+        width: 90%;
+    }
+}
+
 
 @media (max-width: 800px) {
   .navbar_link p {

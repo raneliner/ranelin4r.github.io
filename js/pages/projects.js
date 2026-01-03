@@ -15,7 +15,7 @@ function initProjects() {
   particlesJS('particles', {
     particles: {
       number: { value: 160, density: { enable: true, value_area: 800 } },
-      color: { value: '#000' },
+      color: { value: '#fff' },
       shape: { type: 'circle' },
       opacity: { value: 0.3, random: true },
       size: { value: 10, random: true },
@@ -29,4 +29,23 @@ function initProjects() {
     },
     retina_detect: true
   });
+
+  const rope = document.createElement('canvas');
+  rope.id = 'rope';
+  rope.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  `;
+  document.body.appendChild(rope);
+
+  new RopePendant(document.getElementById('rope'), {
+  segments: 14,
+  segLength: 14,
+  pendantSize: 80,
+  margin: 100,
+  image: '/imgs/frameWithTreat.png'
+});
 }

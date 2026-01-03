@@ -82,9 +82,9 @@ function initGlobal() {
   }
   requestAnimationFrame(raf);
 
-  var scroll = new SmoothScroll('a[href*="#"]', {
+  var scroll = new SmoothScroll('a[href*="#top"]', {
     offset: 72,
-    speed: 1000,
+    speed: 1500,
     speedAsDuration: true,
     easing: 'easeInOutQuart'
   });
@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
   switch (type) {
     case 'projects':
       initProjects();
+      document.body.classList.add('pro');
       break;
     case 'page':
       console.log('page');

@@ -1,0 +1,19 @@
+/* normal */
+:root {
+  --bg-color: #fffade;
+  --fg-color: #d7d2b4;
+  --div-color: #f5f5dc;
+  --text-color: #000;
+  --swap-color: #fff;
+  --div-shadow: 0 0px 10px #555;
+}
+
+/* projects */
+.pro {
+  --bg-color: #2c2a21;       /* 深暖棕（替代原浅米黄） */
+  --fg-color: #5c5847;       /* 中深棕（替代原浅米色） */
+  --div-color: #3a372b;      /* 暖棕灰（替代原奶油色） */
+  --text-color: #f0ebe0;     /* 柔白色（替代原黑色，避免刺眼） */
+  --swap-color: #444030;     /* 深暖调（替代原纯白） */
+  --div-shadow: 0 0px 10px #1a1812; /* 深色阴影（更柔和） */
+}

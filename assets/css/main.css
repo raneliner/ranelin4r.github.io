@@ -12,26 +12,7 @@
 @font-face {
   font-family: "msyhl";
   src: url("/assets/fonts/msyhl.woff2")format("woff2");
-}
-
-
-:root {
-  --bg-color: #fffade;
-  --fg-color: #d7d2b4;
-  --div-color: #f5f5dc;
-  --text-color: #000;
-  --swap-color: #fff;
-  --div-shadow: 0 0px 10px #555;
-}
-
-
-.pro {
-    --bg-color: #2c2a21;       /* 深暖棕（替代原浅米黄） */
-    --fg-color: #5c5847;       /* 中深棕（替代原浅米色） */
-    --div-color: #3a372b;      /* 暖棕灰（替代原奶油色） */
-    --text-color: #f0ebe0;     /* 柔白色（替代原黑色，避免刺眼） */
-    --swap-color: #444030;     /* 深暖调（替代原纯白） */
-    --div-shadow: 0 0px 10px #1a1812; /* 深色阴影（更柔和） */
+  font-display: swap;
 }
 
 
@@ -77,7 +58,7 @@ html.lenis, html.lenis body {
 * {
   word-wrap: break-word;
   box-sizing: border-box;
-  font-family: 'slboot', 'MDL2', 'msyhl';
+  font-family: 'slboot', 'MDL2', 'msyhl', sans-serif;
 }
 
 body {
@@ -121,6 +102,7 @@ body {
 /* load screen */
 #load {
   position: fixed;
+  color: var(--text-color);
   background-color: var(--fg-color);
   transition: opacity 0.5s ease, background-color 0.5s ease;
   opacity: 1;
@@ -229,7 +211,7 @@ body {
   height: 48px;
   margin-right: 15px;
   padding: 0 10px;
-  background: url('/assets/imgs/navtitle.jpg') center/cover no-repeat;
+  background: url('/assets/imgs/blog-ui/navtitle.jpg') center/cover no-repeat;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -283,13 +265,12 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-
+/* dropdown */
 .dropdown {
   position: absolute;
   top: 90%;
   margin-left: 10px;
   padding: 10px 0;
-  width: 140px;
   background-color: var(--div-color);
   box-shadow: var(--div-shadow);
   z-index: 1001;
@@ -334,7 +315,8 @@ body {
 }
 
 .dropdown_link p {
-  padding: 14px 14px;
+  padding: 14px 20px;
+  white-space: nowrap;
 }
 
 .mobile-navbar .dropdown_link p {
@@ -359,7 +341,8 @@ p#other:hover::after {
   transform: rotate(180deg) translateY(2px);
 }
 
-.dropdown_trigger:hover .dropdown {
+.navbar.show .dropdown_trigger:hover .dropdown,
+.mobile-navbar.show .dropdown_trigger:hover .dropdown {
   opacity: 1;
   visibility: visible;
   transform: translateY(4px);
@@ -393,6 +376,31 @@ p#other:hover::after {
   transform: translateX(calc(-50% + 70px));
 }
 
+/* Tag Buttons */
+.tag-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px;
+}
+
+.tag-button {
+  padding: 8px 12px;
+  background-color: var(--div-color);
+  border: 1px solid #d7d2b4;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.tag-button:hover {
+  background-color: var(--fg-color);
+}
+
+.tag-button.active {
+  background-color: var(--fg-color);
+}
 
 /* Post Cards */
 .card-container {
@@ -536,7 +544,6 @@ p#other:hover::after {
   margin: 0px auto 80px auto;
   width: 900px;
   padding: 20px;
-  font-family: 'deng';
 }
 
 .post-content p {
@@ -628,11 +635,11 @@ p#other:hover::after {
   font-weight: 600;
 }
 
-.toc li.active > a {
+.toc li.active a {
   color: var(--accent-color);
 }
 
-.toc li.active > ul {
+.toc li.active ul {
   opacity: 1;
 }
 
@@ -648,7 +655,7 @@ p#other:hover::after {
 
 /* Blockquote */
 blockquote {
-  background: url('/assets/imgs/blockquote.jpg') repeat;
+  background: url('/assets/imgs/blog-ui/blockquote.jpg') repeat;
   background-size: 32px 32px;
   border-left: 3px solid var(--fg-color);
   margin: 12px 0;
@@ -734,6 +741,89 @@ blockquote footer{
 }
 
 
+.friends-link {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  /* 补全父容器宽度，避免换行异常 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.friend-item {
+  display: flex;
+  height: auto;
+  border: 1px solid #ccc;
+  width: 100%;
+  text-decoration: none;
+  background: url(/assets/imgs/blog-ui/blockquote.jpg) repeat;
+  background-size: 32px 32px;
+  box-shadow: var(--div-shadow);
+  transition: box-shadow 0.3s ease; /* 补全ease缓动，动画更丝滑 */
+  /* 补全盒模型，避免边框撑大宽度 */
+  box-sizing: border-box;
+  /* 增加内边距，避免内容贴边 */
+  padding: 8px;
+  /* 防止背景重复时的偏移问题 */
+  background-position: 0 0;
+}
+
+.friend-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.friend-item:hover img {
+  transform: scale(1.4) rotate(0deg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.friend-item:hover .friend-info {
+  margin-left: 36px;
+}
+
+.friend-item img {
+  height: 100px;
+  width: 100px; /* 补全宽度，避免图片拉伸变形 */
+  object-fit: cover; /* 保持图片比例，防止变形 */
+  border: 1px solid #ccc;
+  transform: scale(1.2) rotate(-5deg);
+  background: url(/assets/imgs/blog-ui/blockquote.jpg) repeat;
+  background-size: 32px 32px;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  box-shadow: var(--div-shadow);
+  /* 防止图片溢出 */
+  flex-shrink: 0;
+  background-position: 0 0;
+}
+
+.friend-info {
+  color: #000;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: margin-left 0.5s ease;
+  /* 补全行高，提升文字可读性 */
+  line-height: 1.5;
+}
+
+.friend-info span {
+  font-size: 2em;
+  font-weight: bold;
+  /* 限制文字换行，避免布局错乱 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.friend-info p {
+  margin: 0;
+  /* 调整字体大小，增强层级感 */
+  font-size: 1em;
+  color: #666; /* 轻微降色，突出标题 */
+}
+
+
 /* Mobile Styles */
 @media (max-width: 1000px) {
     .search-bar input{
@@ -753,7 +843,6 @@ blockquote footer{
     }
 }
 
-
 @media (max-width: 800px) {
   .navbar_link p {
     display: none;
@@ -765,5 +854,18 @@ blockquote footer{
 
   .navbar_link p#menu {
     display: block;
+  }
+
+  .friend-info span {
+    font-size: 1.5em;
+  }
+
+  .friend-item img {
+    height: 80px;
+    width: 80px;
+  }
+
+  .friends-link {
+    gap: 20px;
   }
 }

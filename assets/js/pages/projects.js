@@ -42,10 +42,10 @@ function initProjects() {
   document.body.appendChild(rope);
 
   new RopePendant(document.getElementById('rope'), {
-  segments: 14,
-  segLength: 14,
-  pendantSize: 80,
-  margin: 100,
-  image: '/imgs/frameWithTreat.png'
-});
+    segments: 14,
+    segLength: 14,
+    pendantSize: 80,
+    margin: 100,
+    image: '/assets/imgs/frameWithTreat.png'
+  });
 }

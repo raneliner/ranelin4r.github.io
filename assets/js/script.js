@@ -32,7 +32,7 @@ const menuToggle = {
     document.addEventListener('click', e => {
       if (!this.mobileNav.classList.contains('show')) return;
 
-      if (!this.button.contains(e.target)) {
+      if (!this.mobileNav.contains(e.target)) {
         this.mobileNav.classList.remove('show');
       }
     });
@@ -90,15 +90,14 @@ function initGlobal() {
   });
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+const type = document.body.className.toLowerCase();
+
+document.addEventListener('DOMContentLoaded', () => {
   loadAnimate.enter();
+
   menuToggle.init();
   scrollCheck.init();
   initGlobal();
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const type = document.body.className.toLowerCase();
 
   switch (type) {
     case 'projects':
@@ -118,6 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('beforeunload', () => {
   loadAnimate.leave();
+
+  switch (type) {
+    case 'projects':
+      document.body.classList.remove('pro');
+  }
 });
 
 window.addEventListener('pageshow', (e) => {
